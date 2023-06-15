@@ -11,10 +11,10 @@ public interface ICrud<T> {
 
     public void update(T object) throws Exception;
 
-    public void delete(T object) throws Exception;
+    public void delete(int id) throws Exception;
 
     public List<T> select() throws Exception;
 
-    public T getByPk(int primaryKey) throws Exception;
+    public T selectByPk(int primaryKey) throws Exception;
     
 }
