@@ -5,14 +5,14 @@ import java.sql.*;
 /**
  * @author PegasusTeam
  */
-public class Service {
+public abstract class Service {
 
     protected Connection conn = null;
 
     public Service() {
     }
 
-    public Connection getConnection() throws Exception {
+    protected Connection getConnection() throws Exception {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -22,7 +22,7 @@ public class Service {
         return conn;
     }
 
-    public void close(Connection toClose) throws Exception {
+    protected void close(Connection toClose) throws Exception {
         if (toClose != null && !toClose.isClosed()) {
             toClose.close();
             toClose = null;

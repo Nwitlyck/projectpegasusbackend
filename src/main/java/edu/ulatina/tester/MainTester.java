@@ -5,18 +5,9 @@ import edu.ulatina.serviceTO.*;
 /**
  * @author PegasusTeam
  */
-public class MainTester {
+public class MainTester extends Service{
 
     public static void main(String[] args) {
-
-        Service s = new Service();
-        try {
-            
-            s.close(s.getConnection());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
 
