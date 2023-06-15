@@ -12,7 +12,7 @@ public class Service {
     public Service() {
     }
 
-    protected Connection getConnection() throws Exception {
+    public Connection getConnection() throws Exception {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -22,7 +22,7 @@ public class Service {
         return conn;
     }
 
-    protected void close(Connection toClose) throws Exception {
+    public void close(Connection toClose) throws Exception {
         if (toClose != null && !toClose.isClosed()) {
             toClose.close();
             toClose = null;
