@@ -1,6 +1,8 @@
 package edu.ulatina.tester;
 
 import edu.ulatina.transfereObjects.*;
+import java.sql.Timestamp;
+import java.time.Instant;
 
 /**
  * @author PegasusTeam
@@ -10,7 +12,8 @@ public class MainTester{
     public static void main(String[] args) {
         //testColaboratorTO();
         //testMasterTO();
-        testDetailTO();
+        //testDetailTO();
+        testNonWorkingDayTO();
     }
     
     public static void testColaboratorTO()
@@ -18,7 +21,7 @@ public class MainTester{
         
         TestColaboratorTO test = new TestColaboratorTO();
         
-        //test.testInsert(new ColaboratorTO(0, 0, new java.sql.Date(System.currentTimeMillis()), "asdasd")); // insert test
+        //test.testInsert(new ColaboratorTO(0, 0, new java.sql.Date(System.currentTimeMillis()), null, "Felipe")); // insert test
         //test.testUpdate(new ColaboratorTO(1, 0, new java.sql.Date(System.currentTimeMillis()), null, "felipe")); // update test
         //test.testDelete(1); // delete test
         
@@ -68,6 +71,26 @@ public class MainTester{
                     "| Name: " + objectTO.getName()+ 
                     "| General Code: " + objectTO.getGeneralCode()+ 
                     "| Id Master: " + objectTO.getIdMaster()
+            );
+        }
+    }
+    
+    public static void testNonWorkingDayTO()
+    {
+        
+        TestNonWorkingDayTO test = new TestNonWorkingDayTO();
+        
+        //test.testInsert(new NonWorkingDayTO(0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 2, 2)); // insert test
+        //test.testUpdate(new NonWorkingDayTO(1, test.testSelectByPk(1).getInitialDate(), new Timestamp(System.currentTimeMillis()), 2, 2)); // update test
+        //test.testDelete(1); // delete test
+        
+        for(NonWorkingDayTO objectTO : test.testSelect())
+        {
+            System.out.println("Id: " + objectTO.getId() + 
+                    "| Initial Date: " + objectTO.getInitialDate()+ 
+                    "| Final Date: " + objectTO.getFinalDate()+ 
+                    "| Type: " + objectTO.getType()+ 
+                    "| Id colaborador: " + objectTO.getIdColaborator()
             );
         }
     }
