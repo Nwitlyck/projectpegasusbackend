@@ -1,4 +1,4 @@
-package edu.ulatina.serviceTO;
+package edu.ulatina.interfaces;
 
 import java.util.List;
 
@@ -7,9 +7,9 @@ import java.util.List;
  */
 public interface ICrud<T> {
 
-    public void insert(T object) throws Exception;
+    public void insert(T objectTO) throws Exception;
 
-    public void update(T object) throws Exception;
+    public void update(T objectTO) throws Exception;
 
     public void delete(int id) throws Exception;
 

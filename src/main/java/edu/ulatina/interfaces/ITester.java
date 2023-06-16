@@ -1,4 +1,4 @@
-package edu.ulatina.tester;
+package edu.ulatina.interfaces;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ public interface ITester<T> {
 
     public T testSelectByPk(int primaryKey);
 
-    public void testInsert(T object);
+    public void testInsert(T objectTO);
 
-    public void testUpdate(T object);
+    public void testUpdate(T objectTO);
 
     public void testDelete(int id);
 
