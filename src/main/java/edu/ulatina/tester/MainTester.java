@@ -10,7 +10,7 @@ import java.time.Instant;
 public class MainTester{
 
     public static void main(String[] args) {
-        //testColaboratorTO();
+        testColaboratorTO();
         //testMasterTO();
         //testDetailTO();
         //testNonWorkingDayTO();
@@ -21,8 +21,8 @@ public class MainTester{
         
         TestColaboratorTO test = new TestColaboratorTO();
         
-        //test.testInsert(new ColaboratorTO(0, 0, new java.sql.Date(System.currentTimeMillis()), null, "Felipe")); // insert test
-        //test.testUpdate(new ColaboratorTO(1, 0, new java.sql.Date(System.currentTimeMillis()), null, "felipe")); // update test
+        //test.testInsert(new ColaboratorTO(0, 0, new java.sql.Date(System.currentTimeMillis()), null, "Gabo")); // insert test
+        //test.testUpdate(new ColaboratorTO(3, 0, new java.sql.Date(System.currentTimeMillis()), null, "Choppe putillo")); // update test
         //test.testDelete(1); // delete test
         
         for(ColaboratorTO objectTO : test.testSelect())
@@ -96,3 +96,5 @@ public class MainTester{
     }
 
 }
+
+//una tonteria
