@@ -104,8 +104,7 @@ public class ServiceColaboratorTO extends Service implements ICrud<ColaboratorTO
             Date firedate = rs.getDate("firedate");
             String password = rs.getString("password");
 
-            ColaboratorTO colaborator = new ColaboratorTO(id, accesslevel, hiredate, firedate, password);
-            objectTO = colaborator;
+            objectTO = new ColaboratorTO(id, accesslevel, hiredate, firedate, password);
         }
 
         close(rs);
