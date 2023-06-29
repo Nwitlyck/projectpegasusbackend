@@ -16,11 +16,12 @@ public class ServiceColaboratorTO extends Service implements ICrud<ColaboratorTO
 
         PreparedStatement ps = null;
 
-        ps = getConnection().prepareStatement("INSERT INTO colaborators VALUES (null, ?, ?, ?, ?)");
+        ps = getConnection().prepareStatement("INSERT INTO colaborators VALUES (null, ?, ?, ?, ?, ?)");
         ps.setInt(1, objectTO.getAcceslevel());
         ps.setDate(2, objectTO.getHiredate());
         ps.setDate(3, objectTO.getFiredate());
         ps.setString(4, objectTO.getPassword());
+        ps.setInt(5, objectTO.getState());
         ps.executeUpdate();
 
         close(ps);
@@ -32,12 +33,13 @@ public class ServiceColaboratorTO extends Service implements ICrud<ColaboratorTO
 
         PreparedStatement ps = null;
 
-        ps = getConnection().prepareStatement("UPDATE colaborators SET accesslevel = ?, hiredate = ?, firedate = ? , password = ? WHERE (id = ?)");
+        ps = getConnection().prepareStatement("UPDATE colaborators SET accesslevel = ?, hiredate = ?, firedate = ? , password = ?, state = ? WHERE (id = ?)");
         ps.setInt(1, objectTO.getAcceslevel());
         ps.setDate(2, objectTO.getHiredate());
         ps.setDate(3, objectTO.getFiredate());
         ps.setString(4, objectTO.getPassword());
-        ps.setInt(5, objectTO.getId());
+        ps.setInt(5, objectTO.getState());
+        ps.setInt(6, objectTO.getId());
         ps.executeUpdate();
 
         close(ps);
@@ -64,7 +66,7 @@ public class ServiceColaboratorTO extends Service implements ICrud<ColaboratorTO
         ResultSet rs = null;
         List<ColaboratorTO> objectTOList = new ArrayList<ColaboratorTO>();
 
-        ps = getConnection().prepareStatement("SELECT id, accesslevel, hiredate, firedate, password  FROM colaborators");
+        ps = getConnection().prepareStatement("SELECT id, accesslevel, hiredate, firedate, password, state FROM colaborators");
         rs = ps.executeQuery();
 
         while (rs.next()) {
@@ -73,8 +75,9 @@ public class ServiceColaboratorTO extends Service implements ICrud<ColaboratorTO
             Date hiredate = rs.getDate("hiredate");
             Date firedate = rs.getDate("firedate");
             String password = rs.getString("password");
+            int state = rs.getInt("state");
 
-            ColaboratorTO objectTO = new ColaboratorTO(id, accesslevel, hiredate, firedate, password);
+            ColaboratorTO objectTO = new ColaboratorTO(id, accesslevel, hiredate, firedate, password,state);
             
             objectTOList.add(objectTO);
         }
@@ -93,7 +96,7 @@ public class ServiceColaboratorTO extends Service implements ICrud<ColaboratorTO
         ResultSet rs = null;
         ColaboratorTO objectTO = null;
 
-        ps = getConnection().prepareStatement("SELECT id, accesslevel, hiredate, firedate, password  FROM colaborators WHERE id = ?");
+        ps = getConnection().prepareStatement("SELECT id, accesslevel, hiredate, firedate, password, state  FROM colaborators WHERE id = ?");
         ps.setInt(1, primaryKey);
         rs = ps.executeQuery();
 
@@ -103,8 +106,9 @@ public class ServiceColaboratorTO extends Service implements ICrud<ColaboratorTO
             Date hiredate = rs.getDate("hiredate");
             Date firedate = rs.getDate("firedate");
             String password = rs.getString("password");
+            int state = rs.getInt("state");
 
-            objectTO = new ColaboratorTO(id, accesslevel, hiredate, firedate, password);
+            objectTO = new ColaboratorTO(id, accesslevel, hiredate, firedate, password, state);
         }
 
         close(rs);

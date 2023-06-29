@@ -12,11 +12,12 @@ public class ColaboratorTO {
     private Date hiredate;
     private Date firedate;
     private String password;
+    private int state;
 
     public ColaboratorTO() {
     }
     
-    public ColaboratorTO(int id, int acceslevel, Date hiredate, Date firedate, String password) {
+    public ColaboratorTO(int id, int acceslevel, Date hiredate, Date firedate, String password, int state) {
 
         if (id != 0) {
             this.id = id;
@@ -25,6 +26,7 @@ public class ColaboratorTO {
         this.hiredate = hiredate;
         this.firedate = firedate;
         this.password = password;
+        this.state = state;
     }
 
     public int getId() {
@@ -66,7 +68,13 @@ public class ColaboratorTO {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
 
 }
