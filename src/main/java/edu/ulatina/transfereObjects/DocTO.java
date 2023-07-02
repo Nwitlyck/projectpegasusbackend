@@ -1,28 +1,32 @@
-
 package edu.ulatina.transfereObjects;
 
 import java.sql.Date;
 
 /**
- *
- * @author isalo
+ * @author PegasusTeam
  */
-public class DocsTO {
-private int id;
+public class DocTO {
+
+    private int id;
+    private int colaboratorId;
+    private int type;
     private String name;
     private Date date;
-    private int type;
-    private int id_colaborator;
-    
-    public DocsTO(){
+    private int state;
 
-}
-    public DocsTO(int id, String name, Date date, int type, int id_colaborator) {
-        this.id = id;
+    public DocTO() {
+
+    }
+
+    public DocTO(int id, String name, Date date, int type, int id_colaborator, int state) {
+        if (id != 0) {
+            this.id = id;
+        }
         this.name = name;
         this.date = date;
         this.type = type;
-        this.id_colaborator = id_colaborator;
+        this.colaboratorId = id_colaborator;
+        this.state = state;
     }
 
     public int getId() {
@@ -57,17 +61,20 @@ private int id;
         this.type = type;
     }
 
-    public int getId_colaborator() {
-        return id_colaborator;
+    public int getColaboratorId() {
+        return colaboratorId;
     }
 
-    public void setId_colaborator(int id_colaborator) {
-        this.id_colaborator = id_colaborator;
+    public void setColaboratorId(int colaboratorId) {
+        this.colaboratorId = colaboratorId;
     }
-    
-    
-    
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
 }
-
-
-

@@ -1,64 +1,52 @@
 package edu.ulatina.tester;
 
 import edu.ulatina.interfaces.ITester;
-import edu.ulatina.transfereObjects.ColaboratorTO;
-import edu.ulatina.serviceTO.ServiceColaboratorTO;
+import edu.ulatina.transfereObjects.FeedbackTO;
+import edu.ulatina.serviceTO.ServiceFeedbackTO;
 import java.util.*;
 
 /**
  * @author PegasusTeam
  */
-public class TestColaboratorTO implements ITester<ColaboratorTO>{
+public class TestFeedbackTO implements ITester<FeedbackTO> {
 
     @Override
-    public List<ColaboratorTO> testSelect() {
+    public List<FeedbackTO> testSelect() {
         
-        List<ColaboratorTO> objectTOList;
+        List<FeedbackTO> objectTOList;
         
         try {
             
-            objectTOList = new ServiceColaboratorTO().select();
+            objectTOList = new ServiceFeedbackTO().select();
             
         } catch (Exception e) {
             e.printStackTrace();
-            objectTOList = new ArrayList<ColaboratorTO>();
+            objectTOList = new ArrayList<FeedbackTO>();
         }
         
         return objectTOList;
     }
 
     @Override
-    public ColaboratorTO testSelectByPk(ColaboratorTO objectTO) {
+    public FeedbackTO testSelectByPk(FeedbackTO objectTO) {
         
         try {
             
-            return new ServiceColaboratorTO().selectByPk(objectTO);
+            return new ServiceFeedbackTO().selectByPk(objectTO);
             
         } catch (Exception e) {
             e.printStackTrace();
-            return new ColaboratorTO();
+            return new FeedbackTO();
         }
         
     }
 
     @Override
-    public void testInsert(ColaboratorTO objectTO) {
+    public void testInsert(FeedbackTO objectTO) {
         
         try {
             
-            new ServiceColaboratorTO().insert(objectTO);
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void testUpdate(ColaboratorTO objectTO) {
-        
-        try {
-            
-            new ServiceColaboratorTO().update(objectTO);
+            new ServiceFeedbackTO().insert(objectTO);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,15 +54,27 @@ public class TestColaboratorTO implements ITester<ColaboratorTO>{
     }
 
     @Override
-    public void testDelete(ColaboratorTO objectTO) {
+    public void testUpdate(FeedbackTO objectTO) {
         
         try {
             
-            new ServiceColaboratorTO().delete(objectTO);
+            new ServiceFeedbackTO().update(objectTO);
             
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    @Override
+    public void testDelete(FeedbackTO objectTO) {
+        
+        try {
+            
+            new ServiceFeedbackTO().delete(objectTO);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 }

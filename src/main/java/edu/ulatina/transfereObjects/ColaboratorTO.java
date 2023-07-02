@@ -9,8 +9,8 @@ public class ColaboratorTO {
 
     private int id;
     private int acceslevel;
-    private Date hiredate;
-    private Date firedate;
+    private Date hireDate;
+    private Date fireDate;
     private String password;
     private int state;
 
@@ -23,8 +23,8 @@ public class ColaboratorTO {
             this.id = id;
         }
         this.acceslevel = acceslevel;
-        this.hiredate = hiredate;
-        this.firedate = firedate;
+        this.hireDate = hiredate;
+        this.fireDate = firedate;
         this.password = password;
         this.state = state;
     }
@@ -45,20 +45,20 @@ public class ColaboratorTO {
         this.acceslevel = acceslevel;
     }
 
-    public Date getHiredate() {
-        return hiredate;
+    public Date getHireDate() {
+        return hireDate;
     }
 
-    public void setHiredate(Date hiredate) {
-        this.hiredate = hiredate;
+    public void setHireDate(Date hireDate) {
+        this.hireDate = hireDate;
     }
 
-    public Date getFiredate() {
-        return firedate;
+    public Date getFireDate() {
+        return fireDate;
     }
 
-    public void setFiredate(Date firedate) {
-        this.firedate = firedate;
+    public void setFireDate(Date fireDate) {
+        this.fireDate = fireDate;
     }
 
     public String getPassword() {
