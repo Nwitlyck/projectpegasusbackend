@@ -6,9 +6,9 @@ package edu.ulatina.transfereObjects;
 public class DetailTO {
 
     private int id;
+    private int idMaster;
     private String name;
     private String generalCode;
-    private int idMaster;
 
     public DetailTO() {
     }

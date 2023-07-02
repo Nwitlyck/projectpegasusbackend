@@ -2,7 +2,7 @@ package edu.ulatina.tester;
 
 import edu.ulatina.interfaces.ITester;
 import edu.ulatina.transfereObjects.DetailTO;
-import edu.ulatina.serviceTO.ServicioDetailTO;
+import edu.ulatina.serviceTO.ServiceDetailTO;
 import java.util.*;
 
 /**
@@ -17,7 +17,7 @@ public class TestDetailTO implements ITester<DetailTO> {
         
         try {
             
-            objectTOList = new ServicioDetailTO().select();
+            objectTOList = new ServiceDetailTO().select();
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -28,20 +28,16 @@ public class TestDetailTO implements ITester<DetailTO> {
     }
 
     @Override
-    public DetailTO testSelectByPk(int primaryKey) {
-        
-        DetailTO objectTO;
+    public DetailTO testSelectByPk(DetailTO objectTO) {
         
         try {
             
-            objectTO = new ServicioDetailTO().selectByPk(primaryKey);
+            return new ServiceDetailTO().selectByPk(objectTO);
             
         } catch (Exception e) {
             e.printStackTrace();
-            objectTO = new DetailTO();
+            return new DetailTO();
         }
-        
-        return objectTO;
     }
 
     @Override
@@ -49,7 +45,7 @@ public class TestDetailTO implements ITester<DetailTO> {
         
         try {
             
-            new ServicioDetailTO().insert(objectTO);
+            new ServiceDetailTO().insert(objectTO);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,7 +57,7 @@ public class TestDetailTO implements ITester<DetailTO> {
         
         try {
             
-            new ServicioDetailTO().update(objectTO);
+            new ServiceDetailTO().update(objectTO);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,11 +65,11 @@ public class TestDetailTO implements ITester<DetailTO> {
     }
 
     @Override
-    public void testDelete(int id) {
+    public void testDelete(DetailTO objectTO) {
         
         try {
             
-            new ServicioDetailTO().delete(id);
+            new ServiceDetailTO().delete(objectTO);
             
         } catch (Exception e) {
             e.printStackTrace();
