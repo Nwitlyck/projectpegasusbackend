@@ -1,64 +1,52 @@
 package edu.ulatina.tester;
 
 import edu.ulatina.interfaces.ITester;
-import edu.ulatina.transfereObjects.ColaboratorTO;
-import edu.ulatina.serviceTO.ServiceColaboratorTO;
+import edu.ulatina.transfereObjects.PersonalDataTO;
+import edu.ulatina.serviceTO.ServicePersonalDataTO;
 import java.util.*;
 
 /**
  * @author PegasusTeam
  */
-public class TestColaboratorTO implements ITester<ColaboratorTO>{
+public class TestPersonalDataTO implements ITester<PersonalDataTO> {
 
     @Override
-    public List<ColaboratorTO> testSelect() {
+    public List<PersonalDataTO> testSelect() {
         
-        List<ColaboratorTO> objectTOList;
+        List<PersonalDataTO> objectTOList;
         
         try {
             
-            objectTOList = new ServiceColaboratorTO().select();
+            objectTOList = new ServicePersonalDataTO().select();
             
         } catch (Exception e) {
             e.printStackTrace();
-            objectTOList = new ArrayList<ColaboratorTO>();
+            objectTOList = new ArrayList<PersonalDataTO>();
         }
         
         return objectTOList;
     }
 
     @Override
-    public ColaboratorTO testSelectByPk(ColaboratorTO objectTO) {
+    public PersonalDataTO testSelectByPk(PersonalDataTO objectTO) {
         
         try {
             
-            return new ServiceColaboratorTO().selectByPk(objectTO);
+            return new ServicePersonalDataTO().selectByPk(objectTO);
             
         } catch (Exception e) {
             e.printStackTrace();
-            return new ColaboratorTO();
+            return new PersonalDataTO();
         }
         
     }
 
     @Override
-    public void testInsert(ColaboratorTO objectTO) {
+    public void testInsert(PersonalDataTO objectTO) {
         
         try {
             
-            new ServiceColaboratorTO().insert(objectTO);
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void testUpdate(ColaboratorTO objectTO) {
-        
-        try {
-            
-            new ServiceColaboratorTO().update(objectTO);
+            new ServicePersonalDataTO().insert(objectTO);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,15 +54,28 @@ public class TestColaboratorTO implements ITester<ColaboratorTO>{
     }
 
     @Override
-    public void testDelete(ColaboratorTO objectTO) {
+    public void testUpdate(PersonalDataTO objectTO) {
         
         try {
             
-            new ServiceColaboratorTO().delete(objectTO);
+            new ServicePersonalDataTO().update(objectTO);
             
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    @Override
+    public void testDelete(PersonalDataTO objectTO) {
+        
+        try {
+            
+            new ServicePersonalDataTO().delete(objectTO);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+    }
+    
 }

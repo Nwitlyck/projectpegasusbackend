@@ -28,20 +28,16 @@ public class TestNonWorkingDayTO implements ITester<NonWorkingDayTO> {
     }
 
     @Override
-    public NonWorkingDayTO testSelectByPk(int primaryKey) {
-
-        NonWorkingDayTO objectTO;
-
+    public NonWorkingDayTO testSelectByPk(NonWorkingDayTO objectTO) {
+        
         try {
 
-            objectTO = new ServiceNonWorkingDayTO().selectByPk(primaryKey);
+            return new ServiceNonWorkingDayTO().selectByPk(objectTO);
 
         } catch (Exception e) {
             e.printStackTrace();
-            objectTO = new NonWorkingDayTO();
-        }
-
-        return objectTO;
+            return new NonWorkingDayTO();
+        } 
     }
 
     @Override
@@ -69,11 +65,11 @@ public class TestNonWorkingDayTO implements ITester<NonWorkingDayTO> {
     }
 
     @Override
-    public void testDelete(int id) {
+    public void testDelete(NonWorkingDayTO objectTO) {
 
         try {
 
-            new ServiceNonWorkingDayTO().delete(id);
+            new ServiceNonWorkingDayTO().delete(objectTO);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -8,22 +8,24 @@ import java.sql.Timestamp;
 public class NonWorkingDayTO {
 
     private int id;
-    private Timestamp initialDate;
-    private Timestamp finalDate;
     private int type;
     private int idColaborator;
+    private Timestamp initialDate;
+    private Timestamp finalDate;
+    private int state;
 
     public NonWorkingDayTO() {
     }
 
-    public NonWorkingDayTO(int id, Timestamp initialDate, Timestamp finalDate, int type, int idColaborator) {
+    public NonWorkingDayTO(int id, int type, int idColaborator, Timestamp initialDate, Timestamp finalDate, int state) {
         if (id != 0) {
             this.id = id;
         }
-        this.initialDate = initialDate;
-        this.finalDate = finalDate;
         this.type = type;
         this.idColaborator = idColaborator;
+        this.initialDate = initialDate;
+        this.finalDate = finalDate;
+        this.state = state;
     }
 
     public int getId() {
@@ -64,6 +66,14 @@ public class NonWorkingDayTO {
 
     public void setIdColaborator(int idColaborator) {
         this.idColaborator = idColaborator;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 
 }

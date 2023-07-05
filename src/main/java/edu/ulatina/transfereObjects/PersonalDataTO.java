@@ -1,33 +1,31 @@
-
 package edu.ulatina.transfereObjects;
 
 import java.sql.Date;
 
 /**
- *
- * @author isalo
+ * @author PegasusTeam
  */
 public class PersonalDataTO {
-    
+
     private int id;
+    private int id_colaborator;
     private String name;
     private Date birthdate;
     private int emergencycontact;
-    private int id_colaborator;
-    
-     public PersonalDataTO() {
+    private int state;
+
+    public PersonalDataTO() {
     }
 
-    public PersonalDataTO(int id, String name, Date birthdate, int emergencycontact, int id_colaborator) {
-        
-        if (id != 0) 
+    public PersonalDataTO(int id, int id_colaborator, String name, Date birthdate, int emergencycontact, int state) {
+        if (id != 0) {
             this.id = id;
-            
-        this.id = id;
+        }
+        this.id_colaborator = id_colaborator;
         this.name = name;
         this.birthdate = birthdate;
         this.emergencycontact = emergencycontact;
-        this.id_colaborator = id_colaborator;
+        this.state = state;
     }
 
     public int getId() {
@@ -69,7 +67,13 @@ public class PersonalDataTO {
     public void setId_colaborator(int id_colaborator) {
         this.id_colaborator = id_colaborator;
     }
-    
-    
-}
 
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+}

@@ -9,76 +9,78 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author isalo
+ * @author PegasusTeam
  */
 public class ServicePersonalDataTO extends Service implements ICrud<PersonalDataTO> {
     
-@Override 
+    @Override 
     public void insert (PersonalDataTO objectTO) throws Exception{
         
         PreparedStatement ps = null; 
         
-        ps = getConnection().prepareStatement("INSERT INTO personaldata VALUES (null, ?, ?, ?, ?)");
-        ps.setInt(1, objectTO.getId());
+        ps = getConnection().prepareStatement("INSERT INTO personaldata VALUES (null, ?, ?, ?, ?, ?)");
+        ps.setInt(1, objectTO.getId_colaborator());
         ps.setString(2, objectTO.getName());
         ps.setDate(3, objectTO.getBirthdate());
         ps.setInt(4, objectTO.getEmergencycontact());
-        ps.setInt(5, objectTO.getId_colaborator());
+        ps.setInt(5, objectTO.getState());
+        ps.executeUpdate();
         
         close(ps);
         close(conn);
     }
 
-    
+    @Override
     public void update(PersonalDataTO objectTO) throws Exception {
         
         PreparedStatement ps = null;
         
-        ps = getConnection().prepareStatement("UPDATE personaldata SET name = ?, birthdate = ?, emergencycontact = ?, id_colaborator = ? WHERE = (id = ?)");
+        ps = getConnection().prepareStatement("UPDATE personaldata SET calaborator_id = ?, name = ?, birthdate = ?, emergency_contact = ?, state = ? WHERE (id = ?)");
         
-        ps.setString(1, objectTO.getName());
-        ps.setDate(2, objectTO.getBirthdate());
-        ps.setInt(3, objectTO.getEmergencycontact());
-        ps.setInt(4, objectTO.getId_colaborator());
-        ps.setInt(5, objectTO.getId());
+        ps.setInt(1, objectTO.getId_colaborator());
+        ps.setString(2, objectTO.getName());
+        ps.setDate(3, objectTO.getBirthdate());
+        ps.setInt(4, objectTO.getEmergencycontact());
+        ps.setInt(5, objectTO.getState());
+        ps.setInt(6, objectTO.getId());
         ps.executeUpdate();
 
         close(ps);
         close(conn);
     }
-    
-    public void delete (int id) throws Exception {
+    @Override
+    public void delete (PersonalDataTO objectTO) throws Exception {
         
         PreparedStatement ps = null;
         
-        ps = getConnection().prepareStatement("DELETE FROM personaldata WHERE (id = ?");
+        ps = getConnection().prepareStatement("DELETE FROM personaldata WHERE (id = ?)");
         
-        ps.setInt(1, id);
+        ps.setInt(1, objectTO.getId());
         ps.executeUpdate();
 
         close(ps);
         close(conn);
     }
     
-   
+    @Override
     public List<PersonalDataTO> select() throws Exception{
          PreparedStatement ps = null;
         ResultSet rs = null;
         List<PersonalDataTO> objectTOList = new ArrayList<PersonalDataTO>();
         
-        ps = getConnection().prepareStatement("SELECT id, name, birthdate, emergencycontact,id_colaborator");
+        ps = getConnection().prepareStatement("SELECT id, calaborator_id, name, birthdate, emergency_contact, state FROM personaldata WHERE state = 1");
         rs = ps.executeQuery();
         
         while (rs.next()) {
             int id = rs.getInt("id");
+            int calaboratorId = rs.getInt("calaborator_id");
             String name = rs.getString("name");
             Date birthdate = rs.getDate("birthdate");
-            int emergencycontact = rs.getInt("emergencycontact");
-            int id_colaborator = rs.getInt("id_colaborator");
+            int emergencyContact = rs.getInt("emergency_contact");
+            int state = rs.getInt("state");
             
             
-            PersonalDataTO objectTO = new PersonalDataTO(id, name, birthdate, emergencycontact, id_colaborator);
+            PersonalDataTO objectTO = new PersonalDataTO(id, calaboratorId, name, birthdate, emergencyContact, state);
             
             objectTOList.add(objectTO);           
     }
@@ -90,25 +92,26 @@ public class ServicePersonalDataTO extends Service implements ICrud<PersonalData
 }
      
     @Override
-    public PersonalDataTO selectByPk(int primaryKey) throws Exception {
+    public PersonalDataTO selectByPk(PersonalDataTO objectTO) throws Exception {
          PreparedStatement ps = null;
         ResultSet rs = null;
-        PersonalDataTO objectTO = null;
+        PersonalDataTO personalDataTO = null;
     
-        ps = getConnection().prepareStatement("SELECT id, name, birthdate, emergencycontact, id_colaborator FROM personaldata WHERE id = ?");
-        ps.setInt(1, primaryKey);
+        ps = getConnection().prepareStatement("SELECT id, calaborator_id, name, birthdate, emergency_contact, state FROM personaldata WHERE id = ? AND state = 1");
+        ps.setInt(1, objectTO.getId());
         rs = ps.executeQuery();
         
         if (rs.next()){
             int id = rs.getInt("id");
+            int calaboratorId = rs.getInt("calaborator_id");
             String name = rs.getString("name");
             Date birthdate = rs.getDate("birthdate");
-            int emergencycontact = rs.getInt("emergencycontact");
-            int id_colaborator = rs.getInt("id_colaborator");
+            int emergencyContact = rs.getInt("emergency_contact");
+            int state = rs.getInt("state");
             
             
-            PersonalDataTO personaldata = new PersonalDataTO(id, name, birthdate, emergencycontact, id_colaborator);
-            objectTO = personaldata;
+            
+            personalDataTO  = new PersonalDataTO(id, calaboratorId, name, birthdate, emergencyContact, state);
                      
         }
         
@@ -116,7 +119,7 @@ public class ServicePersonalDataTO extends Service implements ICrud<PersonalData
         close(ps);
         close(conn);
 
-        return objectTO;
+        return personalDataTO;
     }
 
 }
