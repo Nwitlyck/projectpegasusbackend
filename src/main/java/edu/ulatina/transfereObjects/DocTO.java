@@ -1,7 +1,5 @@
 package edu.ulatina.transfereObjects;
 
-import java.sql.Date;
-
 /**
  * @author PegasusTeam
  */
@@ -10,23 +8,19 @@ public class DocTO {
     private int id;
     private int colaboratorId;
     private int type;
-    private String name;
-    private Date date;
-    private int state;
+    private String docLocation;
 
     public DocTO() {
 
     }
 
-    public DocTO(int id, String name, Date date, int type, int id_colaborator, int state) {
+    public DocTO(int id, int colaboratorId, int type, String docLocation) {
         if (id != 0) {
             this.id = id;
         }
-        this.name = name;
-        this.date = date;
+        this.colaboratorId = colaboratorId;
         this.type = type;
-        this.colaboratorId = id_colaborator;
-        this.state = state;
+        this.docLocation = docLocation;
     }
 
     public int getId() {
@@ -37,20 +31,12 @@ public class DocTO {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getColaboratorId() {
+        return colaboratorId;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
+    public void setColaboratorId(int colaboratorId) {
+        this.colaboratorId = colaboratorId;
     }
 
     public int getType() {
@@ -61,20 +47,12 @@ public class DocTO {
         this.type = type;
     }
 
-    public int getColaboratorId() {
-        return colaboratorId;
+    public String getDocLocation() {
+        return docLocation;
     }
 
-    public void setColaboratorId(int colaboratorId) {
-        this.colaboratorId = colaboratorId;
+    public void setDocLocation(String docLocation) {
+        this.docLocation = docLocation;
     }
-
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
+    
 }

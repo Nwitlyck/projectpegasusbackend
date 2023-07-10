@@ -68,7 +68,7 @@ public class ServiceNonWorkingDayTO extends Service implements ICrud<NonWorkingD
         ResultSet rs = null;
         List<NonWorkingDayTO> objectTOList = new ArrayList<NonWorkingDayTO>();
 
-        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, initial_date, final_date, state, review FROM nonworkingdays");
+        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, initial_date, final_date, state, review FROM nonworkingdays WHERE review = 0 ");
         rs = ps.executeQuery();
 
         while (rs.next()) {
