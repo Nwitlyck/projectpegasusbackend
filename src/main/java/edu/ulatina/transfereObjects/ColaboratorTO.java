@@ -8,24 +8,29 @@ import java.sql.Date;
 public class ColaboratorTO {
 
     private int id;
+    private int managerId;
+    private String email;
     private int acceslevel;
     private Date hireDate;
     private Date fireDate;
     private String password;
+    private int vacationDays;
     private int state;
 
     public ColaboratorTO() {
     }
-    
-    public ColaboratorTO(int id, int acceslevel, Date hiredate, Date firedate, String password, int state) {
 
+    public ColaboratorTO(int id, int managerId, String email, int acceslevel, Date hireDate, Date fireDate, String password, int vacationDays, int state) {
         if (id != 0) {
             this.id = id;
         }
+        this.managerId = managerId;
+        this.email = email;
         this.acceslevel = acceslevel;
-        this.hireDate = hiredate;
-        this.fireDate = firedate;
+        this.hireDate = hireDate;
+        this.fireDate = fireDate;
         this.password = password;
+        this.vacationDays = vacationDays;
         this.state = state;
     }
 
@@ -35,6 +40,22 @@ public class ColaboratorTO {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(int managerId) {
+        this.managerId = managerId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getAcceslevel() {
@@ -67,6 +88,14 @@ public class ColaboratorTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getVacationDays() {
+        return vacationDays;
+    }
+
+    public void setVacationDays(int vacationDays) {
+        this.vacationDays = vacationDays;
     }
 
     public int getState() {
