@@ -15,12 +15,10 @@ public class ServiceDocsTO extends Service implements ICrud<DocTO> {
     public void insert(DocTO objectTO) throws Exception {
         PreparedStatement ps = null;
 
-        ps = getConnection().prepareStatement("INSERT INTO docs VALUES (null, ?, ?, ?, ?, ?)");
+        ps = getConnection().prepareStatement("INSERT INTO docs VALUES (null, ?, ?, ?)");
         ps.setInt(1, objectTO.getColaboratorId());
         ps.setInt(2, objectTO.getType());
-        ps.setString(3, objectTO.getName());
-        ps.setDate(4, objectTO.getDate());
-        ps.setInt(5, objectTO.getState());
+        ps.setString(3, objectTO.getDocLocation());
         ps.executeUpdate();
 
         close(ps);
@@ -31,13 +29,11 @@ public class ServiceDocsTO extends Service implements ICrud<DocTO> {
     public void update(DocTO objectTO) throws Exception {
         PreparedStatement ps = null;
 
-        ps = getConnection().prepareStatement("UPDATE docs SET calaborator_id = ?, type = ?, name = ?, date = ?, state= ? WHERE (id = ?)");
+        ps = getConnection().prepareStatement("UPDATE docs SET calaborator_id = ?, type = ?, doclocation = ? WHERE (id = ?)");
 
         ps.setInt(1, objectTO.getColaboratorId());
         ps.setInt(2, objectTO.getType());
-        ps.setString(3, objectTO.getName());
-        ps.setDate(4, objectTO.getDate());
-        ps.setInt(5, objectTO.getState());
+        ps.setString(3, objectTO.getDocLocation());
         ps.setInt(6, objectTO.getId());
         ps.executeUpdate();
 
@@ -64,18 +60,16 @@ public class ServiceDocsTO extends Service implements ICrud<DocTO> {
         ResultSet rs = null;
         List<DocTO> objectTOList = new ArrayList<DocTO>();
 
-        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, name, date, state FROM docs WHERE state = 1");
+        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, doclocation FROM docs");
         rs = ps.executeQuery();
 
         while (rs.next()) {
             int id = rs.getInt("id");
             int id_colaborator = rs.getInt("calaborator_id");
             int type = rs.getInt("type");
-            String name = rs.getString("name");
-            Date date = rs.getDate("date");
-            int state = rs.getInt("state");
+            String docLocation = rs.getString("doclocation");
 
-            DocTO objectTO = new DocTO(id, name, date, type, id_colaborator, state);
+            DocTO objectTO = new DocTO(id, id_colaborator, type, docLocation);
 
             objectTOList.add(objectTO);
         }
@@ -92,7 +86,7 @@ public class ServiceDocsTO extends Service implements ICrud<DocTO> {
         ResultSet rs = null;
         DocTO docsTO = null;
 
-        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, name, date, state FROM docs WHERE id = ? AND state = 1");
+        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, doclocation FROM docs WHERE id = ? ");
         ps.setInt(1, objectTO.getId());
         rs = ps.executeQuery();
 
@@ -100,11 +94,9 @@ public class ServiceDocsTO extends Service implements ICrud<DocTO> {
             int id = rs.getInt("id");
             int id_colaborator = rs.getInt("calaborator_id");
             int type = rs.getInt("type");
-            String name = rs.getString("name");
-            Date date = rs.getDate("date");
-            int state = rs.getInt("state");
+            String docLocation = rs.getString("doclocation");
 
-            docsTO = new DocTO(id, name, date, type, id_colaborator, state);
+            docsTO = new DocTO(id, id_colaborator, type, docLocation);
 
         }
 

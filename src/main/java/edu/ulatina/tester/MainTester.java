@@ -106,8 +106,7 @@ public class MainTester {
         //test.testDelete(obj); // delete test
         for (DocTO objectTO : test.testSelect()) {
             System.out.println("Id: " + objectTO.getId()
-                    + "| Name: " + objectTO.getName()
-                    + "| Date: " + objectTO.getDate()
+                    + "| Name: " + objectTO.getDocLocation()
                     + "| Type: " + objectTO.getType()
                     + "| Colaborator id: " + objectTO.getColaboratorId()
             );

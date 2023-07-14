@@ -1,6 +1,6 @@
 package edu.ulatina.transfereObjects;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 /**
  * @author PegasusTeam
@@ -10,14 +10,15 @@ public class NonWorkingDayTO {
     private int id;
     private int type;
     private int idColaborator;
-    private Timestamp initialDate;
-    private Timestamp finalDate;
+    private Date initialDate;
+    private Date finalDate;
     private int state;
+    private int review;
 
     public NonWorkingDayTO() {
     }
 
-    public NonWorkingDayTO(int id, int type, int idColaborator, Timestamp initialDate, Timestamp finalDate, int state) {
+    public NonWorkingDayTO(int id, int type, int idColaborator, Date initialDate, Date finalDate, int state, int review) {
         if (id != 0) {
             this.id = id;
         }
@@ -26,6 +27,7 @@ public class NonWorkingDayTO {
         this.initialDate = initialDate;
         this.finalDate = finalDate;
         this.state = state;
+        this.review = review;
     }
 
     public int getId() {
@@ -36,19 +38,19 @@ public class NonWorkingDayTO {
         this.id = id;
     }
 
-    public Timestamp getInitialDate() {
+    public Date getInitialDate() {
         return initialDate;
     }
 
-    public void setInitialDate(Timestamp initialDate) {
+    public void setInitialDate(Date initialDate) {
         this.initialDate = initialDate;
     }
 
-    public Timestamp getFinalDate() {
+    public Date getFinalDate() {
         return finalDate;
     }
 
-    public void setFinalDate(Timestamp finalDate) {
+    public void setFinalDate(Date finalDate) {
         this.finalDate = finalDate;
     }
 
@@ -75,5 +77,14 @@ public class NonWorkingDayTO {
     public void setState(int state) {
         this.state = state;
     }
+
+    public int getReview() {
+        return review;
+    }
+
+    public void setReview(int review) {
+        this.review = review;
+    }
+    
 
 }
