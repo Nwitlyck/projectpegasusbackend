@@ -163,17 +163,17 @@ public class ServiceColaboratorTO extends Service implements ICrud<ColaboratorTO
         return objectTOList;
     }
     
-    public List<ColaboratorTO> selectByEmail(String byEmail) throws Exception {
+    public ColaboratorTO selectByEmail(String byEmail) throws Exception {
         
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<ColaboratorTO> objectTOList = new ArrayList<ColaboratorTO>();
+        ColaboratorTO objectTO = null;
         
         ps = getConnection().prepareStatement("SELECT id, manager_id, email, access_level, hire_date, fire_date, password, vacationdays, state FROM colaborators WHERE email = ? AND state = 1");
         ps.setString(1, byEmail);
         rs = ps.executeQuery();
         
-        while (rs.next()) {
+        if (rs.next()) {
             int id = rs.getInt("id");
             int managerId = rs.getInt("manager_id");
             String email = rs.getString("email");
@@ -184,16 +184,14 @@ public class ServiceColaboratorTO extends Service implements ICrud<ColaboratorTO
             String vacationDays = rs.getString("vacationdays");
             int state = rs.getInt("state");
             
-            ColaboratorTO objectTO = new ColaboratorTO(id, managerId, email, accesslevel, hiredate, firedate, password, managerId, state);
-            
-            objectTOList.add(objectTO);
+            objectTO = new ColaboratorTO(id, managerId, email, accesslevel, hiredate, firedate, password, managerId, state);
         }
         
         close(rs);
         close(ps);
         close(conn);
         
-        return objectTOList;
+        return objectTO;
     }
     
     public List<ColaboratorTO> selectByState(int byState) throws Exception {

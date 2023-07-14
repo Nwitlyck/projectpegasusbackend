@@ -106,4 +106,30 @@ public class ServiceDocsTO extends Service implements ICrud<DocTO> {
 
         return docsTO;
     }
+    
+    public List<DocTO> selectByColaboratorId(int byColaboratorId) throws Exception {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<DocTO> objectTOList = new ArrayList<DocTO>();
+
+        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, doclocation FROM docs Where calaborator_id = ?");
+        ps.setInt(1, byColaboratorId);
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            int id_colaborator = rs.getInt("calaborator_id");
+            int type = rs.getInt("type");
+            String docLocation = rs.getString("doclocation");
+
+            DocTO objectTO = new DocTO(id, id_colaborator, type, docLocation);
+
+            objectTOList.add(objectTO);
+        }
+        close(rs);
+        close(ps);
+        close(conn);
+
+        return objectTOList;
+    }
 }

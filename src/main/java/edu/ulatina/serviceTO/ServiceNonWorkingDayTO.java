@@ -68,7 +68,7 @@ public class ServiceNonWorkingDayTO extends Service implements ICrud<NonWorkingD
         ResultSet rs = null;
         List<NonWorkingDayTO> objectTOList = new ArrayList<NonWorkingDayTO>();
 
-        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, initial_date, final_date, state, review FROM nonworkingdays WHERE review = 0 ");
+        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, initial_date, final_date, state, review FROM nonworkingdays");
         rs = ps.executeQuery();
 
         while (rs.next()) {
@@ -121,6 +121,68 @@ public class ServiceNonWorkingDayTO extends Service implements ICrud<NonWorkingD
         close(conn);
 
         return nonWorkingDayTO;
+    }
+    
+    public List<NonWorkingDayTO> selectByColaboratorId(int byColaboratorId) throws Exception {
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<NonWorkingDayTO> objectTOList = new ArrayList<NonWorkingDayTO>();
+
+        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, initial_date, final_date, state, review FROM nonworkingdays WHERE calaborator_id = ? ");
+        ps.setInt(1, byColaboratorId);
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            int idColaborator = rs.getInt("calaborator_id");
+            int type = rs.getInt("type");
+            Date initialDate = rs.getDate("initial_date");
+            Date finalDate = rs.getDate("final_date");
+            int state = rs.getInt("state");
+            int review = rs.getInt("review");
+
+            NonWorkingDayTO objectTO = new NonWorkingDayTO(id, type, idColaborator, initialDate, finalDate, state, review);
+
+            objectTOList.add(objectTO);
+        }
+
+        close(rs);
+        close(ps);
+        close(conn);
+
+        return objectTOList;
+    }
+    
+    public List<NonWorkingDayTO> selectByReview(int byRewiew) throws Exception {
+ 
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<NonWorkingDayTO> objectTOList = new ArrayList<NonWorkingDayTO>();
+
+        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, initial_date, final_date, state, review FROM nonworkingdays WHERE review = ? ");
+        ps.setInt(1, byRewiew);
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            int idColaborator = rs.getInt("calaborator_id");
+            int type = rs.getInt("type");
+            Date initialDate = rs.getDate("initial_date");
+            Date finalDate = rs.getDate("final_date");
+            int state = rs.getInt("state");
+            int review = rs.getInt("review");
+
+            NonWorkingDayTO objectTO = new NonWorkingDayTO(id, type, idColaborator, initialDate, finalDate, state, review);
+
+            objectTOList.add(objectTO);
+        }
+
+        close(rs);
+        close(ps);
+        close(conn);
+
+        return objectTOList;
     }
     
 }
