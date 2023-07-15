@@ -8,23 +8,30 @@ import java.sql.Date;
 public class ColaboratorTO {
 
     private int id;
+    private int managerId;
+    private String email;
     private int acceslevel;
-    private Date hiredate;
-    private Date firedate;
+    private Date hireDate;
+    private Date fireDate;
     private String password;
+    private int vacationDays;
+    private int state;
 
     public ColaboratorTO() {
     }
-    
-    public ColaboratorTO(int id, int acceslevel, Date hiredate, Date firedate, String password) {
 
+    public ColaboratorTO(int id, int managerId, String email, int acceslevel, Date hireDate, Date fireDate, String password, int vacationDays, int state) {
         if (id != 0) {
             this.id = id;
         }
+        this.managerId = managerId;
+        this.email = email;
         this.acceslevel = acceslevel;
-        this.hiredate = hiredate;
-        this.firedate = firedate;
+        this.hireDate = hireDate;
+        this.fireDate = fireDate;
         this.password = password;
+        this.vacationDays = vacationDays;
+        this.state = state;
     }
 
     public int getId() {
@@ -35,6 +42,22 @@ public class ColaboratorTO {
         this.id = id;
     }
 
+    public int getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(int managerId) {
+        this.managerId = managerId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public int getAcceslevel() {
         return acceslevel;
     }
@@ -43,20 +66,20 @@ public class ColaboratorTO {
         this.acceslevel = acceslevel;
     }
 
-    public Date getHiredate() {
-        return hiredate;
+    public Date getHireDate() {
+        return hireDate;
     }
 
-    public void setHiredate(Date hiredate) {
-        this.hiredate = hiredate;
+    public void setHireDate(Date hireDate) {
+        this.hireDate = hireDate;
     }
 
-    public Date getFiredate() {
-        return firedate;
+    public Date getFireDate() {
+        return fireDate;
     }
 
-    public void setFiredate(Date firedate) {
-        this.firedate = firedate;
+    public void setFireDate(Date fireDate) {
+        this.fireDate = fireDate;
     }
 
     public String getPassword() {
@@ -66,7 +89,21 @@ public class ColaboratorTO {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
+
+    public int getVacationDays() {
+        return vacationDays;
+    }
+
+    public void setVacationDays(int vacationDays) {
+        this.vacationDays = vacationDays;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
 
 }
