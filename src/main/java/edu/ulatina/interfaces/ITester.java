@@ -9,12 +9,12 @@ public interface ITester<T> {
 
     public List<T> testSelect();
 
-    public T testSelectByPk(int primaryKey);
+    public T testSelectByPk(T objectTO);
 
     public void testInsert(T objectTO);
 
     public void testUpdate(T objectTO);
 
-    public void testDelete(int id);
+    public void testDelete(T objectTO);
 
 }

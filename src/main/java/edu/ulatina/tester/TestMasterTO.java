@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package edu.ulatina.tester;
 
 import edu.ulatina.interfaces.ITester;
@@ -10,8 +6,7 @@ import edu.ulatina.serviceTO.ServiceMasterTO;
 import java.util.*;
 
 /**
- *
- * @author Nwitlyck
+ * @author PegasusTeam
  */
 public class TestMasterTO implements ITester<MasterTO> {
 
@@ -33,20 +28,16 @@ public class TestMasterTO implements ITester<MasterTO> {
     }
 
     @Override
-    public MasterTO testSelectByPk(int primaryKey) {
-        
-        MasterTO objectTO;
+    public MasterTO testSelectByPk(MasterTO objectTO) {
         
         try {
             
-            objectTO = new ServiceMasterTO().selectByPk(primaryKey);
+            return new ServiceMasterTO().selectByPk(objectTO);
             
         } catch (Exception e) {
             e.printStackTrace();
-            objectTO = new MasterTO();
+            return new MasterTO();
         }
-        
-        return objectTO;
     }
 
     @Override
@@ -74,11 +65,11 @@ public class TestMasterTO implements ITester<MasterTO> {
     }
 
     @Override
-    public void testDelete(int id) {
+    public void testDelete(MasterTO objectTO) {
         
         try {
             
-            new ServiceMasterTO().delete(id);
+            new ServiceMasterTO().delete(objectTO);
             
         } catch (Exception e) {
             e.printStackTrace();
