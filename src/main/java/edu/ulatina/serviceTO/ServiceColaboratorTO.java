@@ -22,8 +22,8 @@ public class ServiceColaboratorTO extends Service implements ICrud<ColaboratorTO
         ps.setInt(3, objectTO.getAcceslevel());
         ps.setDate(4, objectTO.getHireDate());
         ps.setDate(5, objectTO.getFireDate());
-        ps.setInt(6, objectTO.getVacationDays());
-        ps.setString(7, objectTO.getPassword());
+        ps.setString(6, objectTO.getPassword());
+        ps.setInt(7, objectTO.getVacationDays());
         ps.setInt(8, objectTO.getState());
         ps.executeUpdate();
         
