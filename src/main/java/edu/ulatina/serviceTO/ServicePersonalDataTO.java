@@ -121,6 +121,36 @@ public class ServicePersonalDataTO extends Service implements ICrud<PersonalData
 
         return personalDataTO;
     }
+    
+    public PersonalDataTO selectByColaboratorId(int byColaboratorId) throws Exception {
+         PreparedStatement ps = null;
+        ResultSet rs = null;
+        PersonalDataTO personalDataTO = null;
+    
+        ps = getConnection().prepareStatement("SELECT id, calaborator_id, name, birthdate, emergency_contact, state FROM personaldata WHERE calaborator_id = ?");
+        ps.setInt(1, byColaboratorId);
+        rs = ps.executeQuery();
+        
+        if (rs.next()){
+            int id = rs.getInt("id");
+            int calaboratorId = rs.getInt("calaborator_id");
+            String name = rs.getString("name");
+            Date birthdate = rs.getDate("birthdate");
+            int emergencyContact = rs.getInt("emergency_contact");
+            int state = rs.getInt("state");
+            
+            
+            
+            personalDataTO  = new PersonalDataTO(id, calaboratorId, name, birthdate, emergencyContact, state);
+                     
+        }
+        
+        close(rs);
+        close(ps);
+        close(conn);
+
+        return personalDataTO;
+    }
 
 }
 

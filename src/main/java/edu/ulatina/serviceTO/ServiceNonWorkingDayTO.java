@@ -160,8 +160,40 @@ public class ServiceNonWorkingDayTO extends Service implements ICrud<NonWorkingD
         ResultSet rs = null;
         List<NonWorkingDayTO> objectTOList = new ArrayList<NonWorkingDayTO>();
 
-        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, initial_date, final_date, state, review FROM nonworkingdays WHERE review = ? ");
+        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, initial_date, final_date, state, review FROM nonworkingdays WHERE review = ?");
         ps.setInt(1, byRewiew);
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            int idColaborator = rs.getInt("calaborator_id");
+            int type = rs.getInt("type");
+            Date initialDate = rs.getDate("initial_date");
+            Date finalDate = rs.getDate("final_date");
+            int state = rs.getInt("state");
+            int review = rs.getInt("review");
+
+            NonWorkingDayTO objectTO = new NonWorkingDayTO(id, type, idColaborator, initialDate, finalDate, state, review);
+
+            objectTOList.add(objectTO);
+        }
+
+        close(rs);
+        close(ps);
+        close(conn);
+
+        return objectTOList;
+    }
+    
+    public List<NonWorkingDayTO> selectByReviewAndColaboratorManagerId(int byRewiew, int byColaboratorManagerId) throws Exception {
+ 
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<NonWorkingDayTO> objectTOList = new ArrayList<NonWorkingDayTO>();
+
+        ps = getConnection().prepareStatement("SELECT n.id, n.calaborator_id, n.type, n.initial_date, n.final_date, n.state, n.review FROM nonworkingdays n, colaborators c WHERE c.id = n.calaborator_id AND c.manager_id = ? AND n.review = ?");
+        ps.setInt(1, byRewiew);
+        ps.setInt(2, byColaboratorManagerId);
         rs = ps.executeQuery();
 
         while (rs.next()) {
