@@ -15,10 +15,10 @@ public class ServiceColaboratorHasProjectTO extends Service implements ICrud <Co
     public void insert(ColaboratorHasProjectTO objectTO) throws Exception {
         PreparedStatement ps = null;
 
-        ps = getConnection().prepareStatement("INSERT INTO colaboratosr_has_projects VALUES (?, ?, ?, ?, ?, ?)");
+        ps = getConnection().prepareStatement("INSERT INTO colaboratosr_has_projects VALUES (null, ?, ?, ?, ?, ?, ?)");
         ps.setInt(1, objectTO.getIdColaborator());
         ps.setInt(2, objectTO.getIdProject());
-        ps.setInt(3, objectTO.getHours());
+        ps.setInt(3, objectTO.getTotalTime());
         ps.setDate(4, objectTO.getInitialDate());
         ps.setDate(5, objectTO.getFinalDate());
         ps.setInt(6, objectTO.getState());
@@ -32,13 +32,16 @@ public class ServiceColaboratorHasProjectTO extends Service implements ICrud <Co
     public void update(ColaboratorHasProjectTO objectTO) throws Exception {
         PreparedStatement ps = null;
 
-        ps = getConnection().prepareStatement("UPDATE colaboratosr_has_projects SET hours = ?, initial_date = ?, final_date = ? , state = ? WHERE (id_colaborador = ? AND id_project = ?)");
-        ps.setInt(1, objectTO.getHours());
-        ps.setDate(2, objectTO.getInitialDate());
-        ps.setDate(3, objectTO.getFinalDate());
-        ps.setInt(4, objectTO.getState());
-        ps.setInt(5, objectTO.getIdColaborator());
-        ps.setInt(6, objectTO.getIdProject());
+        ps = getConnection().prepareStatement("UPDATE colaboratosr_has_projects SET id_colaborador = ?, id_project = ?, totalTime = ?, initial_date = ?, final_date = ? , state = ? WHERE (id = ?)");
+        ps.setInt(1, objectTO.getIdColaborator());
+        ps.setInt(2, objectTO.getIdProject());
+        ps.setInt(3, objectTO.getTotalTime());
+        ps.setDate(4, objectTO.getInitialDate());
+        ps.setDate(5, objectTO.getFinalDate());
+        ps.setInt(6, objectTO.getState());
+        ps.setInt(7, objectTO.getIdColaborator());
+        ps.setInt(8, objectTO.getIdProject());
+        ps.setInt(9, objectTO.getId());
         ps.executeUpdate();
 
         close(ps);
@@ -49,9 +52,8 @@ public class ServiceColaboratorHasProjectTO extends Service implements ICrud <Co
     public void delete(ColaboratorHasProjectTO objectTO) throws Exception {
         PreparedStatement ps = null;
 
-        ps = getConnection().prepareStatement("DELETE FROM colaboratosr_has_projects WHERE (id_colaborador = ? AND id_project = ?)");
-        ps.setInt(1, objectTO.getIdColaborator());
-        ps.setInt(2, objectTO.getIdProject());
+        ps = getConnection().prepareStatement("DELETE FROM colaboratosr_has_projects WHERE (id = ?)");
+        ps.setInt(1, objectTO.getId());
         ps.executeUpdate();
 
         close(ps);
@@ -64,18 +66,19 @@ public class ServiceColaboratorHasProjectTO extends Service implements ICrud <Co
         ResultSet rs = null;
         List<ColaboratorHasProjectTO> objectTOList = new ArrayList<ColaboratorHasProjectTO>();
 
-        ps = getConnection().prepareStatement("SELECT id_colaborador, id_project, hours, initial_date, final_date, state FROM colaboratosr_has_projects WHERE state = 1");
+        ps = getConnection().prepareStatement("SELECT id_colaborador, id_project, totalTime, initial_date, final_date, state FROM colaboratosr_has_projects WHERE state = 1");
         rs = ps.executeQuery();
 
         while (rs.next()) {
+            int id = rs.getInt("id");
             int idColab = rs.getInt("id_colaborador");
             int idProject = rs.getInt("id_project");
-            int hours = rs.getInt("hours");
+            int totalTime = rs.getInt("totalTime");
             Date initial_date = rs.getDate("initial_date");
             Date final_date = rs.getDate("final_date");
             int state = rs.getInt("state");
           
-            ColaboratorHasProjectTO objectTO = new ColaboratorHasProjectTO(idColab, idProject, hours, initial_date, final_date, state);
+            ColaboratorHasProjectTO objectTO = new ColaboratorHasProjectTO(id, idColab, idProject, totalTime, initial_date, final_date, state);
             
             objectTOList.add(objectTO);
         }
@@ -93,20 +96,20 @@ public class ServiceColaboratorHasProjectTO extends Service implements ICrud <Co
         ResultSet rs = null;
         ColaboratorHasProjectTO colaboratorHasProjectTO = null;
 
-        ps = getConnection().prepareStatement("SELECT id_colaborador, id_project, hours, initial_date, final_date, state FROM colaboratosr_has_projects WHERE id_colaborador = ? AND id_project = ? AND state = 1");
-        ps.setInt(1, objectTO.getIdColaborator());
-        ps.setInt(2, objectTO.getIdProject());
+        ps = getConnection().prepareStatement("SELECT id_colaborador, id_project, totalTime, initial_date, final_date, state FROM colaboratosr_has_projects WHERE id_colaborador = ? AND id_project = ? AND state = 1");
+        ps.setInt(1, objectTO.getId());
         rs = ps.executeQuery();
 
         if (rs.next()) {
+            int id = rs.getInt("id");
             int idColab = rs.getInt("id_colaborador");
             int idProject = rs.getInt("id_project");
-            int hours = rs.getInt("hours");
+            int totalTime = rs.getInt("totalTime");
             Date initial_date = rs.getDate("initial_date");
             Date final_date = rs.getDate("final_date");
             int state = rs.getInt("state");
 
-            colaboratorHasProjectTO = new ColaboratorHasProjectTO(idColab, idProject, hours, initial_date, final_date, state);
+            colaboratorHasProjectTO = new ColaboratorHasProjectTO(id, idColab, idProject, totalTime, initial_date, final_date, state);
         }
 
         close(rs);

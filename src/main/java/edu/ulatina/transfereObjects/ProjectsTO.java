@@ -12,18 +12,18 @@ public class ProjectsTO {
     private Date initialdate;
     private Date finaldate;
     private int state;
+    private int completed;
 
     public ProjectsTO() {
     }
 
-    public ProjectsTO(int id, String name, Date initialdate, Date finaldate, int state) {
-        if (id != 0) {
-            this.id = id;
-        }
+    public ProjectsTO(int id, String name, Date initialdate, Date finaldate, int state, int completed) {
+        this.id = id;
         this.name = name;
         this.initialdate = initialdate;
         this.finaldate = finaldate;
         this.state = state;
+        this.completed = completed;
     }
 
     public int getId() {
@@ -64,6 +64,14 @@ public class ProjectsTO {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public int getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(int completed) {
+        this.completed = completed;
     }
     
 }

@@ -16,13 +16,14 @@ public class ServiceNonWorkingDayTO extends Service implements ICrud<NonWorkingD
 
         PreparedStatement ps = null;
 
-        ps = getConnection().prepareStatement("INSERT INTO nonworkingdays VALUES (null, ?, ?, ?, ?, ?, ?)");
+        ps = getConnection().prepareStatement("INSERT INTO nonworkingdays VALUES (null, ?, ?, ?, ?, ?, ?, ?)");
         ps.setInt(1, objectTO.getIdColaborator());
         ps.setInt(2, objectTO.getType());
         ps.setDate(3, objectTO.getInitialDate());
         ps.setDate(4, objectTO.getFinalDate());
-        ps.setInt(5, objectTO.getState());
-        ps.setInt(6, objectTO.getReview());
+        ps.setString(5, objectTO.getFeedback());
+        ps.setInt(6, objectTO.getState());
+        ps.setInt(7, objectTO.getReview());
         ps.executeUpdate();
 
         close(ps);
@@ -34,14 +35,15 @@ public class ServiceNonWorkingDayTO extends Service implements ICrud<NonWorkingD
 
         PreparedStatement ps = null;
 
-        ps = getConnection().prepareStatement("UPDATE nonworkingdays SET calaborator_id = ?, type = ?, initial_date = ?, final_date = ?, state = ?, review = ?  WHERE (id = ?)");
+        ps = getConnection().prepareStatement("UPDATE nonworkingdays SET calaborator_id = ?, type = ?, initial_date = ?, final_date = ?, feedback = ?, state = ?, review = ?  WHERE (id = ?)");
         ps.setInt(1, objectTO.getIdColaborator());
         ps.setInt(2, objectTO.getType());
         ps.setDate(3, objectTO.getInitialDate());
         ps.setDate(4, objectTO.getFinalDate());
-        ps.setInt(5, objectTO.getState());
-        ps.setInt(6, objectTO.getReview());
-        ps.setInt(7, objectTO.getId());
+        ps.setString(5, objectTO.getFeedback());
+        ps.setInt(6, objectTO.getState());
+        ps.setInt(7, objectTO.getReview());
+        ps.setInt(8, objectTO.getId());
         ps.executeUpdate();
 
         close(ps);
@@ -68,7 +70,7 @@ public class ServiceNonWorkingDayTO extends Service implements ICrud<NonWorkingD
         ResultSet rs = null;
         List<NonWorkingDayTO> objectTOList = new ArrayList<NonWorkingDayTO>();
 
-        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, initial_date, final_date, state, review FROM nonworkingdays");
+        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, initial_date, final_date, feedback, state, review FROM nonworkingdays");
         rs = ps.executeQuery();
 
         while (rs.next()) {
@@ -77,10 +79,11 @@ public class ServiceNonWorkingDayTO extends Service implements ICrud<NonWorkingD
             int type = rs.getInt("type");
             Date initialDate = rs.getDate("initial_date");
             Date finalDate = rs.getDate("final_date");
+            String feedback = rs.getString("feedback");
             int state = rs.getInt("state");
             int review = rs.getInt("review");
 
-            NonWorkingDayTO objectTO = new NonWorkingDayTO(id, type, idColaborator, initialDate, finalDate, state, review);
+            NonWorkingDayTO objectTO = new NonWorkingDayTO(id, type, idColaborator, initialDate, finalDate, feedback, state, review);
 
             objectTOList.add(objectTO);
         }
@@ -99,7 +102,7 @@ public class ServiceNonWorkingDayTO extends Service implements ICrud<NonWorkingD
         ResultSet rs = null;
         NonWorkingDayTO nonWorkingDayTO = null;
 
-        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, initial_date, final_date, state, review FROM nonworkingdays WHERE id = ?");
+        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, initial_date, final_date, feedback, state, review FROM nonworkingdays WHERE id = ?");
         ps.setInt(1, objectTO.getId());
         rs = ps.executeQuery();
 
@@ -109,10 +112,11 @@ public class ServiceNonWorkingDayTO extends Service implements ICrud<NonWorkingD
             int type = rs.getInt("type");
             Date initialDate = rs.getDate("initial_date");
             Date finalDate = rs.getDate("final_date");
+            String feedback = rs.getString("feedback");
             int state = rs.getInt("state");
             int review = rs.getInt("review");
 
-            nonWorkingDayTO = new NonWorkingDayTO(id, type, idColaborator, initialDate, finalDate, state, review);
+            nonWorkingDayTO = new NonWorkingDayTO(id, type, idColaborator, initialDate, finalDate, feedback, state, review);
 
         }
 
@@ -129,7 +133,7 @@ public class ServiceNonWorkingDayTO extends Service implements ICrud<NonWorkingD
         ResultSet rs = null;
         List<NonWorkingDayTO> objectTOList = new ArrayList<NonWorkingDayTO>();
 
-        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, initial_date, final_date, state, review FROM nonworkingdays WHERE calaborator_id = ? ");
+        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, initial_date, final_date, feedback, state, review FROM nonworkingdays WHERE calaborator_id = ? ");
         ps.setInt(1, byColaboratorId);
         rs = ps.executeQuery();
 
@@ -139,10 +143,11 @@ public class ServiceNonWorkingDayTO extends Service implements ICrud<NonWorkingD
             int type = rs.getInt("type");
             Date initialDate = rs.getDate("initial_date");
             Date finalDate = rs.getDate("final_date");
+            String feedback = rs.getString("feedback");
             int state = rs.getInt("state");
             int review = rs.getInt("review");
 
-            NonWorkingDayTO objectTO = new NonWorkingDayTO(id, type, idColaborator, initialDate, finalDate, state, review);
+            NonWorkingDayTO objectTO = new NonWorkingDayTO(id, type, idColaborator, initialDate, finalDate, feedback, state, review);
 
             objectTOList.add(objectTO);
         }
@@ -160,7 +165,7 @@ public class ServiceNonWorkingDayTO extends Service implements ICrud<NonWorkingD
         ResultSet rs = null;
         List<NonWorkingDayTO> objectTOList = new ArrayList<NonWorkingDayTO>();
 
-        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, initial_date, final_date, state, review FROM nonworkingdays WHERE review = ?");
+        ps = getConnection().prepareStatement("SELECT id, calaborator_id, type, initial_date, final_date, feedback, state, review FROM nonworkingdays WHERE review = ?");
         ps.setInt(1, byRewiew);
         rs = ps.executeQuery();
 
@@ -170,10 +175,11 @@ public class ServiceNonWorkingDayTO extends Service implements ICrud<NonWorkingD
             int type = rs.getInt("type");
             Date initialDate = rs.getDate("initial_date");
             Date finalDate = rs.getDate("final_date");
+            String feedback = rs.getString("feedback");
             int state = rs.getInt("state");
             int review = rs.getInt("review");
 
-            NonWorkingDayTO objectTO = new NonWorkingDayTO(id, type, idColaborator, initialDate, finalDate, state, review);
+            NonWorkingDayTO objectTO = new NonWorkingDayTO(id, type, idColaborator, initialDate, finalDate, feedback, state, review);
 
             objectTOList.add(objectTO);
         }
@@ -191,7 +197,7 @@ public class ServiceNonWorkingDayTO extends Service implements ICrud<NonWorkingD
         ResultSet rs = null;
         List<NonWorkingDayTO> objectTOList = new ArrayList<NonWorkingDayTO>();
 
-        ps = getConnection().prepareStatement("SELECT n.id, n.calaborator_id, n.type, n.initial_date, n.final_date, n.state, n.review FROM nonworkingdays n, colaborators c WHERE c.id = n.calaborator_id AND c.manager_id = ? AND n.review = ?");
+        ps = getConnection().prepareStatement("SELECT n.id, n.calaborator_id, n.type, n.initial_date, n.final_date, n.feedback, n.state, n.review FROM nonworkingdays n, colaborators c WHERE c.id = n.calaborator_id AND n.review = ?  AND c.manager_id = ?");
         ps.setInt(1, byRewiew);
         ps.setInt(2, byColaboratorManagerId);
         rs = ps.executeQuery();
@@ -202,10 +208,11 @@ public class ServiceNonWorkingDayTO extends Service implements ICrud<NonWorkingD
             int type = rs.getInt("type");
             Date initialDate = rs.getDate("initial_date");
             Date finalDate = rs.getDate("final_date");
+            String feedback = rs.getString("feedback");
             int state = rs.getInt("state");
             int review = rs.getInt("review");
 
-            NonWorkingDayTO objectTO = new NonWorkingDayTO(id, type, idColaborator, initialDate, finalDate, state, review);
+            NonWorkingDayTO objectTO = new NonWorkingDayTO(id, type, idColaborator, initialDate, finalDate, feedback, state, review);
 
             objectTOList.add(objectTO);
         }
