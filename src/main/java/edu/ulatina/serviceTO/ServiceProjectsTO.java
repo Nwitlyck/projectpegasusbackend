@@ -17,11 +17,12 @@ public class ServiceProjectsTO extends Service implements ICrud<ProjectsTO> {
 
         PreparedStatement ps = null;
 
-        ps = getConnection().prepareStatement("INSERT INTO projects VALUES (null, ?, ?, ?, ?)");
+        ps = getConnection().prepareStatement("INSERT INTO projects VALUES (null, ?, ?, ?, ?, ?)");
         ps.setString(1, objectTO.getName());
         ps.setDate(2, objectTO.getInitialdate());
         ps.setDate(3, objectTO.getFinaldate());
         ps.setInt(4, objectTO.getState());
+        ps.setInt(5, objectTO.getCompleted());
         ps.executeUpdate();
 
         close(ps);
@@ -32,13 +33,14 @@ public class ServiceProjectsTO extends Service implements ICrud<ProjectsTO> {
 
         PreparedStatement ps = null;
 
-        ps = getConnection().prepareStatement("UPDATE projects SET name = ?, initial_date = ?, final_date = ?, state = ? WHERE (id = ?)");
+        ps = getConnection().prepareStatement("UPDATE projects SET name = ?, initial_date = ?, final_date = ?, state = ?, completed = ? WHERE (id = ?)");
 
         ps.setString(1, objectTO.getName());
         ps.setDate(2, objectTO.getInitialdate());
         ps.setDate(3, objectTO.getFinaldate());
         ps.setInt(4, objectTO.getState());
-        ps.setInt(5, objectTO.getId());
+        ps.setInt(5, objectTO.getCompleted());
+        ps.setInt(6, objectTO.getId());
         ps.executeUpdate();
 
         close(ps);
@@ -63,7 +65,7 @@ public class ServiceProjectsTO extends Service implements ICrud<ProjectsTO> {
         ResultSet rs = null;
         List<ProjectsTO> objectTOList = new ArrayList<ProjectsTO>();
 
-        ps = getConnection().prepareStatement("SELECT id, name, initial_date, final_date, state FROM projects WHERE state = 1");
+        ps = getConnection().prepareStatement("SELECT id, name, initial_date, final_date, state, completed FROM projects WHERE state = 1");
         rs = ps.executeQuery();
 
         while (rs.next()) {
@@ -72,8 +74,9 @@ public class ServiceProjectsTO extends Service implements ICrud<ProjectsTO> {
             Date initialdate = rs.getDate("initial_date");
             Date finaldate = rs.getDate("final_date");
             int state = rs.getInt("state");
+            int complete = rs.getInt("completed");
 
-            ProjectsTO objectTO = new ProjectsTO(id, name, initialdate, finaldate, state);
+            ProjectsTO objectTO = new ProjectsTO(id, name, initialdate, finaldate, state, complete);
 
             objectTOList.add(objectTO);
         }
@@ -90,7 +93,7 @@ public class ServiceProjectsTO extends Service implements ICrud<ProjectsTO> {
         ResultSet rs = null;
         ProjectsTO projectTO = null;
 
-        ps = getConnection().prepareStatement("SELECT id, name, initial_date, final_date, state FROM projects WHERE id = ? AND state = 1");
+        ps = getConnection().prepareStatement("SELECT id, name, initial_date, final_date, state, completed FROM projects WHERE id = ? AND state = 1");
         ps.setInt(1, objectTO.getId());
         rs = ps.executeQuery();
 
@@ -100,8 +103,9 @@ public class ServiceProjectsTO extends Service implements ICrud<ProjectsTO> {
             Date initialdate = rs.getDate("initial_date");
             Date finaldate = rs.getDate("final_date");
             int state = rs.getInt("state");
+            int complete = rs.getInt("completed");
 
-            projectTO = new ProjectsTO(id, name, initialdate, finaldate, state);
+            projectTO = new ProjectsTO(id, name, initialdate, finaldate, state, complete);
 
         }
 

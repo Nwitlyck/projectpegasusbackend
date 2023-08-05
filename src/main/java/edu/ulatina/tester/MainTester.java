@@ -181,7 +181,7 @@ public class MainTester {
         for (ColaboratorHasProjectTO objectTO : test.testSelect()) {
             System.out.println("Colaborador id: " + objectTO.getIdColaborator()
                     + "| Project id: " + objectTO.getIdProject()
-                    + "| Hours: " + objectTO.getHours()
+                    + "| Hours: " + objectTO.getTotalTime()
                     + "| Initial date: " + objectTO.getInitialDate()
                     + "| Final date: " + objectTO.getFinalDate()
             );

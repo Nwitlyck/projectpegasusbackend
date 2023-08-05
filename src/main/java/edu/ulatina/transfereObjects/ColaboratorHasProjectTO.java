@@ -7,27 +7,33 @@ import java.sql.Date;
  */
 public class ColaboratorHasProjectTO {
 
+    private int id;
     private int idColaborator;
     private int idProject;
-    private int hours;
+    private int totalTime;
     private Date initialDate;
     private Date finalDate;
     private int state;
 
     public ColaboratorHasProjectTO() {
     }
-
-    public ColaboratorHasProjectTO(int idColab, int idProject, int hours, Date initialDate, Date finalDate, int state) {
-        if (idColab != 0) {
-            this.idColaborator = idColab;
-        }
-        if (idProject != 0) {
-            this.idProject = idProject;
-        }
-        this.hours = hours;
+    
+    public ColaboratorHasProjectTO(int id, int idColaborator, int idProject, int totalTime, Date initialDate, Date finalDate, int state) {
+        this.id = id;
+        this.idColaborator = idColaborator;
+        this.idProject = idProject;
+        this.totalTime = totalTime;
         this.initialDate = initialDate;
         this.finalDate = finalDate;
         this.state = state;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getIdColaborator() {
@@ -46,12 +52,12 @@ public class ColaboratorHasProjectTO {
         this.idProject = idProject;
     }
 
-    public int getHours() {
-        return hours;
+    public int getTotalTime() {
+        return totalTime;
     }
 
-    public void setHours(int hours) {
-        this.hours = hours;
+    public void setTotalTime(int totalTime) {
+        this.totalTime = totalTime;
     }
 
     public Date getInitialDate() {
@@ -78,4 +84,6 @@ public class ColaboratorHasProjectTO {
         this.state = state;
     }
     
+    
+
 }
