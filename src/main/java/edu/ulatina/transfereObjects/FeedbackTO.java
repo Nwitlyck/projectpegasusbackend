@@ -1,10 +1,12 @@
 
 package edu.ulatina.transfereObjects;
 
+import java.io.Serializable;
+
 /**
  * @author PegasusTeam
  */
-public class FeedbackTO {
+public class FeedbackTO implements Serializable{
     private int id;
     private int author;
     private String opinion;

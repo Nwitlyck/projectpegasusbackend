@@ -4,11 +4,13 @@
  */
 package edu.ulatina.transfereObjects;
 
+import java.io.Serializable;
+
 /**
  *
  * @author isalozano
  */
-public class InvestedTimeTO {
+public class InvestedTimeTO implements Serializable{
     
     private int id;
     private int colaboratorAndProjectId;
