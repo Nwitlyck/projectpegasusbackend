@@ -16,7 +16,7 @@ public abstract class Service {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectpegasus?serverTimezone=UTC", "root", "Root");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/projectpegasus?serverTimezone=UTC", "root", "1234");
         //make sure u have the data base up and change ur user and password
 
         return conn;
