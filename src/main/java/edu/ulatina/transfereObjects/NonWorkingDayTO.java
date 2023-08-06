@@ -1,11 +1,12 @@
 package edu.ulatina.transfereObjects;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * @author PegasusTeam
  */
-public class NonWorkingDayTO {
+public class NonWorkingDayTO implements Serializable{
 
     private int id;
     private int type;

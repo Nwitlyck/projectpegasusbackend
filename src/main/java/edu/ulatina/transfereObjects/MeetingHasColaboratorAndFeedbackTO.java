@@ -1,9 +1,11 @@
 package edu.ulatina.transfereObjects;
 
+import java.io.Serializable;
+
 /**
  * @author PegasusTeam
  */
-public class MeetingHasColaboratorAndFeedbackTO {
+public class MeetingHasColaboratorAndFeedbackTO implements Serializable{
     private int ColaboratorId;
     private int MeetingId;
     private int FeedbackId;
