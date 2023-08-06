@@ -112,5 +112,29 @@ public class ServiceDetailTO extends Service implements ICrud<DetailTO> {
 
         return detailTO;
     }
+    
+    public Map<String, Integer> selectByMasterId(int byMasterId) throws Exception {
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Map<String, Integer> map = new HashMap<>();
+
+        ps = getConnection().prepareStatement("SELECT id, name FROM details WHERE masteres_id = ?");
+        ps.setInt(1, byMasterId);
+        rs = ps.executeQuery();
+
+        while(rs.next()) {
+            int id = rs.getInt("id");
+            String name = rs.getString("name");
+
+            map.put(name, id);
+        }
+
+        close(rs);
+        close(ps);
+        close(conn);
+
+        return map;
+    }
 
 }
