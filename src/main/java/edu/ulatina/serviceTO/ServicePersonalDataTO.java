@@ -151,7 +151,6 @@ public class ServicePersonalDataTO extends Service implements ICrud<PersonalData
     public Map<String, Integer> selectUsingMap() throws Exception {
         PreparedStatement ps = null;
         ResultSet rs = null;
-        PersonalDataTO personalDataTO = null;
         Map<String, Integer> map = new HashMap<>();
 
         ps = getConnection().prepareStatement("SELECT id, calaborator_id, name, birthdate, emergency_contact, state FROM personaldata WHERE state = 1");
