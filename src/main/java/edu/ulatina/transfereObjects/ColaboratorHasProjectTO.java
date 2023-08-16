@@ -1,11 +1,12 @@
 package edu.ulatina.transfereObjects;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * @author PegasusTeam
  */
-public class ColaboratorHasProjectTO {
+public class ColaboratorHasProjectTO implements Serializable{
 
     private int id;
     private int idColaborator;

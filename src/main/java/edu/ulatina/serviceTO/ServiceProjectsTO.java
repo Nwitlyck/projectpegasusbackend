@@ -5,7 +5,9 @@ import edu.ulatina.transfereObjects.PersonalDataTO;
 import edu.ulatina.transfereObjects.ProjectsTO;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author PegasusTeam
@@ -114,6 +116,28 @@ public class ServiceProjectsTO extends Service implements ICrud<ProjectsTO> {
         close(conn);
 
         return projectTO;
+    }
+    
+    public Map<String, Integer> selectUsingMap() throws Exception {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Map<String, Integer> map = new HashMap<>();
+
+        ps = getConnection().prepareStatement("SELECT id, name FROM projects");
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String name = rs.getString("name");
+
+            map.put(name, id);
+        }
+
+        close(rs);
+        close(ps);
+        close(conn);
+
+        return map;
     }
 
 }

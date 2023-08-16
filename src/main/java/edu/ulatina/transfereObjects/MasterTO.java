@@ -1,9 +1,11 @@
 package edu.ulatina.transfereObjects;
 
+import java.io.Serializable;
+
 /**
  * @author PegasusTeam
  */
-public class MasterTO {
+public class MasterTO implements Serializable{
 
     private int id;
     private String name;

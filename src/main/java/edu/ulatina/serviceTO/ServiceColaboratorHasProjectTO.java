@@ -66,7 +66,7 @@ public class ServiceColaboratorHasProjectTO extends Service implements ICrud <Co
         ResultSet rs = null;
         List<ColaboratorHasProjectTO> objectTOList = new ArrayList<ColaboratorHasProjectTO>();
 
-        ps = getConnection().prepareStatement("SELECT id_colaborador, id_project, totalTime, initial_date, final_date, state FROM colaboratosr_has_projects WHERE state = 1");
+        ps = getConnection().prepareStatement("SELECT id, id_colaborador, id_project, totalTime, initial_date, final_date, state FROM colaboratosr_has_projects WHERE state = 1");
         rs = ps.executeQuery();
 
         while (rs.next()) {
@@ -96,7 +96,7 @@ public class ServiceColaboratorHasProjectTO extends Service implements ICrud <Co
         ResultSet rs = null;
         ColaboratorHasProjectTO colaboratorHasProjectTO = null;
 
-        ps = getConnection().prepareStatement("SELECT id_colaborador, id_project, totalTime, initial_date, final_date, state FROM colaboratosr_has_projects WHERE id_colaborador = ? AND id_project = ? AND state = 1");
+        ps = getConnection().prepareStatement("SELECT id, id_colaborador, id_project, totalTime, initial_date, final_date, state FROM colaboratosr_has_projects WHERE id_colaborador = ? AND id_project = ? AND state = 1");
         ps.setInt(1, objectTO.getId());
         rs = ps.executeQuery();
 
@@ -119,4 +119,64 @@ public class ServiceColaboratorHasProjectTO extends Service implements ICrud <Co
         return colaboratorHasProjectTO;
     }
     
+    
+    public List<ColaboratorHasProjectTO> selectByProjectId(int byProjectId) throws Exception {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<ColaboratorHasProjectTO> objectTOList = new ArrayList<ColaboratorHasProjectTO>();
+
+        ps = getConnection().prepareStatement("SELECT id, id_colaborador, id_project, totalTime, initial_date, final_date, state FROM colaboratosr_has_projects WHERE id_project = ?");
+        ps.setInt(1, byProjectId);
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            int idColab = rs.getInt("id_colaborador");
+            int idProject = rs.getInt("id_project");
+            int totalTime = rs.getInt("totalTime");
+            Date initial_date = rs.getDate("initial_date");
+            Date final_date = rs.getDate("final_date");
+            int state = rs.getInt("state");
+          
+            ColaboratorHasProjectTO objectTO = new ColaboratorHasProjectTO(id, idColab, idProject, totalTime, initial_date, final_date, state);
+            
+            objectTOList.add(objectTO);
+        }
+
+        close(rs);
+        close(ps);
+        close(conn);
+
+        return objectTOList;
+    }
+    
+    public List<ColaboratorHasProjectTO> selectByColaboratorId(int byColaboratorId) throws Exception {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<ColaboratorHasProjectTO> objectTOList = new ArrayList<ColaboratorHasProjectTO>();
+
+        ps = getConnection().prepareStatement("SELECT id, id_colaborador, id_project, totalTime, initial_date, final_date, state FROM colaboratosr_has_projects WHERE id_colaborador = ?");
+        ps.setInt(1, byColaboratorId);
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            int idColab = rs.getInt("id_colaborador");
+            int idProject = rs.getInt("id_project");
+            int totalTime = rs.getInt("totalTime");
+            Date initial_date = rs.getDate("initial_date");
+            Date final_date = rs.getDate("final_date");
+            int state = rs.getInt("state");
+          
+            ColaboratorHasProjectTO objectTO = new ColaboratorHasProjectTO(id, idColab, idProject, totalTime, initial_date, final_date, state);
+            
+            objectTOList.add(objectTO);
+        }
+
+        close(rs);
+        close(ps);
+        close(conn);
+
+        return objectTOList;
+    }
 }
