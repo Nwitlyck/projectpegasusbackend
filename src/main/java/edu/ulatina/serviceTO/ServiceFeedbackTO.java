@@ -1,4 +1,3 @@
-
 package edu.ulatina.serviceTO;
 
 import edu.ulatina.interfaces.ICrud;
@@ -14,14 +13,15 @@ public class ServiceFeedbackTO extends Service implements ICrud<FeedbackTO> {
 
     @Override
     public void insert(FeedbackTO objectTO) throws Exception {
-       PreparedStatement ps = null; 
-       
-       ps = getConnection().prepareStatement("INSERT INTO feedbacks VALUES (null, ?, ?, ?)");
+        PreparedStatement ps = null;
+
+        ps = getConnection().prepareStatement("INSERT INTO feedbacks VALUES (null, ?, ?, ?, ?)");
         ps.setInt(1, objectTO.getAuthor());
-        ps.setString(2, objectTO.getOpinion());
-        ps.setInt(3, objectTO.getState());
+        ps.setString(2, objectTO.getFeedback());
+        ps.setDate(3, objectTO.getDateOfFeedback());
+        ps.setInt(4, objectTO.getState());
         ps.executeUpdate();
-        
+
         close(ps);
         close(conn);
     }
@@ -29,13 +29,14 @@ public class ServiceFeedbackTO extends Service implements ICrud<FeedbackTO> {
     @Override
     public void update(FeedbackTO objectTO) throws Exception {
         PreparedStatement ps = null;
-        
-        ps = getConnection().prepareStatement("UPDATE feedbacks SET author = ?, opinion = ?, state= ? WHERE (id = ?)");
-        
+
+        ps = getConnection().prepareStatement("UPDATE feedbacks SET author = ?, feedback = ?, date_of_feedback = ?, state= ? WHERE (id = ?)");
+
         ps.setInt(1, objectTO.getAuthor());
-        ps.setString(2, objectTO.getOpinion());
-        ps.setInt(3, objectTO.getState());
-        ps.setInt(4, objectTO.getId());
+        ps.setString(2, objectTO.getFeedback());
+        ps.setDate(3, objectTO.getDateOfFeedback());
+        ps.setInt(4, objectTO.getState());
+        ps.setInt(5, objectTO.getId());
         ps.executeUpdate();
 
         close(ps);
@@ -44,10 +45,10 @@ public class ServiceFeedbackTO extends Service implements ICrud<FeedbackTO> {
 
     @Override
     public void delete(FeedbackTO objectTO) throws Exception {
-         PreparedStatement ps = null;
-        
+        PreparedStatement ps = null;
+
         ps = getConnection().prepareStatement("DELETE FROM feedbacks WHERE (id = ?)");
-        
+
         ps.setInt(1, objectTO.getId());
         ps.executeUpdate();
 
@@ -57,24 +58,24 @@ public class ServiceFeedbackTO extends Service implements ICrud<FeedbackTO> {
 
     @Override
     public List<FeedbackTO> select() throws Exception {
-        
+
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<FeedbackTO> objectTOList = new ArrayList<FeedbackTO>();
-        
-        ps = getConnection().prepareStatement("SELECT id, author, opinion, state FROM feedbacks WHERE state = 1");
+
+        ps = getConnection().prepareStatement("SELECT id, author, feedback, date_of_feedback, state FROM feedbacks");
         rs = ps.executeQuery();
-        
+
         while (rs.next()) {
             int id = rs.getInt("id");
             int author = rs.getInt("author");
-            String opinion = rs.getString("opinion");
+            String feedback = rs.getString("feedback");
+            Date dateOfFeedback = rs.getDate("date_of_feedback");
             int state = rs.getInt("state");
-            
-            
-            FeedbackTO objectTO = new FeedbackTO(id, author, opinion, state);
-            
-            objectTOList.add(objectTO);           
+
+            FeedbackTO objectTO = new FeedbackTO(id, author, feedback, dateOfFeedback, state);
+
+            objectTOList.add(objectTO);
         }
         close(rs);
         close(ps);
@@ -88,26 +89,57 @@ public class ServiceFeedbackTO extends Service implements ICrud<FeedbackTO> {
         PreparedStatement ps = null;
         ResultSet rs = null;
         FeedbackTO feedbackTO = null;
-    
-        ps = getConnection().prepareStatement("SELECT id, author, opinion, state FROM feedbacks WHERE id = ? AND state = 1");
+
+        ps = getConnection().prepareStatement("SELECT id, author, feedback, date_of_feedback, state FROM feedbacks WHERE id = ?");
         ps.setInt(1, objectTO.getId());
         rs = ps.executeQuery();
-        
-        if (rs.next()){
+
+        if (rs.next()) {
             int id = rs.getInt("id");
             int author = rs.getInt("author");
-            String opinion = rs.getString("opinion");
+            String feedback = rs.getString("feedback");
+            Date dateOfFeedback = rs.getDate("date_of_feedback");
             int state = rs.getInt("state");
-            
-            feedbackTO = new FeedbackTO(id, author, opinion, state);
-                     
+
+            feedbackTO = new FeedbackTO(id, author, feedback, dateOfFeedback, state);
+
         }
-        
+
         close(rs);
         close(ps);
         close(conn);
 
         return feedbackTO;
     }
+
     
+    public FeedbackTO selectByAll(FeedbackTO objectTO) throws Exception {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        FeedbackTO feedbackTO = null;
+
+        ps = getConnection().prepareStatement("SELECT id, author, feedback, date_of_feedback, state FROM feedbacks WHERE author = ? AND feedback = ? AND date_of_feedback = ? AND state = ?");
+        ps.setInt(1, objectTO.getAuthor());
+        ps.setString(2, objectTO.getFeedback());
+        ps.setDate(3, objectTO.getDateOfFeedback());
+        ps.setInt(4, objectTO.getState());
+        rs = ps.executeQuery();
+
+        if (rs.next()) {
+            int id = rs.getInt("id");
+            int author = rs.getInt("author");
+            String feedback = rs.getString("feedback");
+            Date dateOfFeedback = rs.getDate("date_of_feedback");
+            int state = rs.getInt("state");
+
+            feedbackTO = new FeedbackTO(id, author, feedback, dateOfFeedback, state);
+
+        }
+
+        close(rs);
+        close(ps);
+        close(conn);
+
+        return feedbackTO;
+    }
 }
