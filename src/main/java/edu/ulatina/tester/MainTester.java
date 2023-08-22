@@ -125,7 +125,7 @@ public class MainTester {
         for (FeedbackTO objectTO : test.testSelect()) {
             System.out.println("Id: " + objectTO.getId()
                     + "| Author: " + objectTO.getAuthor()
-                    + "| Opinion: " + objectTO.getOpinion()
+                    + "| Opinion: " + objectTO.getFeedback()
             );
         }
     }
@@ -141,7 +141,6 @@ public class MainTester {
         //test.testInsert(new MeetingHasColaboratorAndFeedbackTO(1, 1, 2, 1)); // insert test
         //test.testUpdate(new MeetingHasColaboratorAndFeedbackTO(1, 1, 2, 0)); // update test
         //test.testDelete(obj); // delete test
-
         for (MeetingHasColaboratorAndFeedbackTO objectTO : test.testSelect()) {
             System.out.println("Colaborator id: " + objectTO.getColaboratorId()
                     + "| Meeting id: " + objectTO.getMeetingId()
@@ -150,23 +149,6 @@ public class MainTester {
         }
     }
 
-    public static void testMeetingTO() {
-
-        TestMeetingTO test = new TestMeetingTO();
-        MeetingTO obj = new MeetingTO();
-        obj.setId(2);
-
-        //test.testInsert(new MeetingTO(0, new java.sql.Date(System.currentTimeMillis()), 1, 1)); // insert test
-        //test.testUpdate(new MeetingTO(1, test.testSelectByPk(obj).getDate(), 1, 0)); // update test
-        //test.testDelete(obj); // delete test
-        for (MeetingTO objectTO : test.testSelect()) {
-            System.out.println("Id: " + objectTO.getId()
-                    + "| Date: " + objectTO.getDate()
-                    + "| Type: " + objectTO.getType()
-            );
-        }
-    }
-    
     public static void testColaboratorHasProjectTO() {
 
         TestColaboratorHasProjectTO test = new TestColaboratorHasProjectTO();
@@ -177,7 +159,6 @@ public class MainTester {
         //test.testInsert(new ColaboratorHasProjectTO(1, 1, 100, new java.sql.Date(System.currentTimeMillis()), null, 1)); // insert test
         //test.testUpdate(new ColaboratorHasProjectTO(1, 1, 100, test.testSelectByPk(obj).getInitialDate() , new java.sql.Date(System.currentTimeMillis()), 1)); // update test
         //test.testDelete(obj); // delete test
-        
         for (ColaboratorHasProjectTO objectTO : test.testSelect()) {
             System.out.println("Colaborador id: " + objectTO.getIdColaborator()
                     + "| Project id: " + objectTO.getIdProject()
@@ -187,18 +168,16 @@ public class MainTester {
             );
         }
     }
-    
+
     public static void testProjectTO() {
 
         TestProjectTO test = new TestProjectTO();
         ProjectsTO obj = new ProjectsTO();
         obj.setId(1);
 
-        
         //test.testInsert(new ProjectsTO(0, "Pegasus", new java.sql.Date(System.currentTimeMillis()), null, 1)); // insert test
         //test.testUpdate(new ProjectsTO(1, "Project Pegasus", test.testSelectByPk(obj).getInitialdate(), null, 1)); // update test
         //test.testDelete(obj); // delete test
-        
         for (ProjectsTO objectTO : test.testSelect()) {
             System.out.println("Id: " + objectTO.getId()
                     + "| Name: " + objectTO.getName()
@@ -207,18 +186,16 @@ public class MainTester {
             );
         }
     }
-    
+
     public static void testPersonalDataTO() {
 
         TestPersonalDataTO test = new TestPersonalDataTO();
         PersonalDataTO obj = new PersonalDataTO();
         obj.setId(1);
 
-        
         //test.testInsert(new PersonalDataTO(0, 1, "Admin", new java.sql.Date(System.currentTimeMillis()), 87399898, 1)); // insert test
         //test.testUpdate(new PersonalDataTO(1, 1, "Admin", test.testSelectByPk(obj).getBirthdate(), 0, 1)); // update test
         //test.testDelete(obj); // delete test
-        
         for (PersonalDataTO objectTO : test.testSelect()) {
             System.out.println("Id: " + objectTO.getId()
                     + "| Name: " + objectTO.getName()
@@ -227,7 +204,7 @@ public class MainTester {
             );
         }
     }
-    
+
     public static void testProjectHasFeedbackTO() {
 
         TestProjectHasFeedbackTO test = new TestProjectHasFeedbackTO();
@@ -235,11 +212,9 @@ public class MainTester {
         obj.setProjectId(1);
         obj.setFeedbackId(2);
 
-        
         //test.testInsert(new ProjectHasFeedbackTO(1, 2, "Work", 0, 1)); // insert test
         //test.testUpdate(new ProjectHasFeedbackTO(1, 2, "Work", 1, 1)); // update test
         //test.testDelete(obj); // delete test
-        
         for (ProjectHasFeedbackTO objectTO : test.testSelect()) {
             System.out.println("Project id: " + objectTO.getProjectId()
                     + "| Feedback id: " + objectTO.getFeedbackId()

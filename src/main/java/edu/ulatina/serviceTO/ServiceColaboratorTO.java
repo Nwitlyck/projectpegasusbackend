@@ -83,10 +83,10 @@ public class ServiceColaboratorTO extends Service implements ICrud<ColaboratorTO
             Date hiredate = rs.getDate("hire_date");
             Date firedate = rs.getDate("fire_date");
             String password = rs.getString("password");
-            String vacationDays = rs.getString("vacationdays");
+            int vacationDays = rs.getInt("vacationdays");
             int state = rs.getInt("state");
             
-            ColaboratorTO objectTO = new ColaboratorTO(id, managerId, email, accesslevel, hiredate, firedate, password, managerId, state);
+            ColaboratorTO objectTO = new ColaboratorTO(id, managerId, email, accesslevel, hiredate, firedate, password, vacationDays, state);
             
             objectTOList.add(objectTO);
         }
@@ -117,10 +117,10 @@ public class ServiceColaboratorTO extends Service implements ICrud<ColaboratorTO
             Date hiredate = rs.getDate("hire_date");
             Date firedate = rs.getDate("fire_date");
             String password = rs.getString("password");
-            String vacationDays = rs.getString("vacationdays");
+            int vacationDays = rs.getInt("vacationdays");
             int state = rs.getInt("state");
             
-            colaboratorTO = new ColaboratorTO(id, managerId, email, accesslevel, hiredate, firedate, password, managerId, state);
+            colaboratorTO = new ColaboratorTO(id, managerId, email, accesslevel, hiredate, firedate, password, vacationDays, state);
         }
         
         close(rs);
@@ -148,10 +148,10 @@ public class ServiceColaboratorTO extends Service implements ICrud<ColaboratorTO
             Date hiredate = rs.getDate("hire_date");
             Date firedate = rs.getDate("fire_date");
             String password = rs.getString("password");
-            String vacationDays = rs.getString("vacationdays");
+            int vacationDays = rs.getInt("vacationdays");
             int state = rs.getInt("state");
             
-            ColaboratorTO objectTO = new ColaboratorTO(id, managerId, email, accesslevel, hiredate, firedate, password, managerId, state);
+            ColaboratorTO objectTO = new ColaboratorTO(id, managerId, email, accesslevel, hiredate, firedate, password, vacationDays, state);
             
             objectTOList.add(objectTO);
         }
@@ -181,10 +181,10 @@ public class ServiceColaboratorTO extends Service implements ICrud<ColaboratorTO
             Date hiredate = rs.getDate("hire_date");
             Date firedate = rs.getDate("fire_date");
             String password = rs.getString("password");
-            String vacationDays = rs.getString("vacationdays");
+            int vacationDays = rs.getInt("vacationdays");
             int state = rs.getInt("state");
             
-            objectTO = new ColaboratorTO(id, managerId, email, accesslevel, hiredate, firedate, password, managerId, state);
+            objectTO = new ColaboratorTO(id, managerId, email, accesslevel, hiredate, firedate, password, vacationDays, state);
         }
         
         close(rs);
@@ -213,10 +213,10 @@ public class ServiceColaboratorTO extends Service implements ICrud<ColaboratorTO
             Date hiredate = rs.getDate("hire_date");
             Date firedate = rs.getDate("fire_date");
             String password = rs.getString("password");
-            String vacationDays = rs.getString("vacationdays");
+            int vacationDays = rs.getInt("vacationdays");
             int state = rs.getInt("state");
             
-            ColaboratorTO objectTO = new ColaboratorTO(id, managerId, email, accesslevel, hiredate, firedate, password, managerId, state);
+            ColaboratorTO objectTO = new ColaboratorTO(id, managerId, email, accesslevel, hiredate, firedate, password, vacationDays, state);
             
             objectTOList.add(objectTO);
         }

@@ -5,7 +5,9 @@ import edu.ulatina.transfereObjects.PersonalDataTO;
 import edu.ulatina.transfereObjects.ProjectsTO;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author PegasusTeam
@@ -65,7 +67,7 @@ public class ServiceProjectsTO extends Service implements ICrud<ProjectsTO> {
         ResultSet rs = null;
         List<ProjectsTO> objectTOList = new ArrayList<ProjectsTO>();
 
-        ps = getConnection().prepareStatement("SELECT id, name, initial_date, final_date, state, completed FROM projects WHERE state = 1");
+        ps = getConnection().prepareStatement("SELECT id, name, initial_date, final_date, state, completed FROM projects");
         rs = ps.executeQuery();
 
         while (rs.next()) {
@@ -114,6 +116,51 @@ public class ServiceProjectsTO extends Service implements ICrud<ProjectsTO> {
         close(conn);
 
         return projectTO;
+    }
+    
+    public Map<String, Integer> selectUsingMap() throws Exception {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Map<String, Integer> map = new HashMap<>();
+
+        ps = getConnection().prepareStatement("SELECT id, name FROM projects");
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String name = rs.getString("name");
+
+            map.put(name, id);
+        }
+
+        close(rs);
+        close(ps);
+        close(conn);
+
+        return map;
+    }
+    
+    public Map<String, Integer> selectUsingMapByIdColaborator(int byIdColaborator) throws Exception {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Map<String, Integer> map = new HashMap<>();
+
+        ps = getConnection().prepareStatement("SELECT p.id, p.name FROM projects p, colaboratosr_has_projects chp WHERE p.id = chp.id_project AND id_colaborador = ?");
+        ps.setInt(1, byIdColaborator);
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String name = rs.getString("name");
+
+            map.put(name, id);
+        }
+
+        close(rs);
+        close(ps);
+        close(conn);
+
+        return map;
     }
 
 }

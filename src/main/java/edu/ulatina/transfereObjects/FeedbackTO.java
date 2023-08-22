@@ -2,6 +2,7 @@
 package edu.ulatina.transfereObjects;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 /**
  * @author PegasusTeam
@@ -9,18 +10,18 @@ import java.io.Serializable;
 public class FeedbackTO implements Serializable{
     private int id;
     private int author;
-    private String opinion;
+    private String feedback;
+    private Date dateOfFeedback;
     private int state;
 
     public FeedbackTO() {
     }
 
-    public FeedbackTO(int id, int author, String opinion, int state) {
-        if (id != 0) {
-            this.id = id;
-        }
+    public FeedbackTO(int id, int author, String feedback, Date dateOfFeedback, int state) {
+        this.id = id;
         this.author = author;
-        this.opinion = opinion;
+        this.feedback = feedback;
+        this.dateOfFeedback = dateOfFeedback;
         this.state = state;
     }
 
@@ -40,12 +41,20 @@ public class FeedbackTO implements Serializable{
         this.author = author;
     }
 
-    public String getOpinion() {
-        return opinion;
+    public String getFeedback() {
+        return feedback;
     }
 
-    public void setOpinion(String opinion) {
-        this.opinion = opinion;
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
+
+    public Date getDateOfFeedback() {
+        return dateOfFeedback;
+    }
+
+    public void setDateOfFeedback(Date dateOfFeedback) {
+        this.dateOfFeedback = dateOfFeedback;
     }
 
     public int getState() {
@@ -55,7 +64,5 @@ public class FeedbackTO implements Serializable{
     public void setState(int state) {
         this.state = state;
     }
-    
-    
     
 }

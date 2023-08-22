@@ -6,6 +6,7 @@ import edu.ulatina.transfereObjects.ProjectHasFeedbackTO;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author PegasusTeam
@@ -78,10 +79,7 @@ public class ServiceProjectHasFeedbackTO extends Service implements ICrud<Projec
             int actionPlaneDone = rs.getInt("action_plane_done");
             int state = rs.getInt("state");
             
-            
-            ProjectHasFeedbackTO objectTO = new ProjectHasFeedbackTO(projectId, FeedbackId, actionPlane, actionPlaneDone, state);
-            
-            objectTOList.add(objectTO);           
+            objectTOList.add(new ProjectHasFeedbackTO(projectId, FeedbackId, actionPlane, actionPlaneDone, state));           
     }
         close( rs);
         close(ps);
@@ -96,7 +94,7 @@ public class ServiceProjectHasFeedbackTO extends Service implements ICrud<Projec
         ResultSet rs = null;
         ProjectHasFeedbackTO projectHasFeedbackTO = null;
     
-        ps = getConnection().prepareStatement("SELECT projects_id, feedbacks_id, action_plan, action_plane_done, state FROM projectsprojects_has_feedbacks WHERE projects_id = ? AND feedbacks_id = ? AND state = 1");
+        ps = getConnection().prepareStatement("SELECT projects_id, feedbacks_id, action_plan, action_plane_done, state FROM projects_has_feedbacks WHERE projects_id = ? AND feedbacks_id = ? AND state = 1");
         ps.setInt(1, objectTO.getProjectId());
         ps.setInt(2, objectTO.getFeedbackId());
         rs = ps.executeQuery();
@@ -119,6 +117,35 @@ public class ServiceProjectHasFeedbackTO extends Service implements ICrud<Projec
         close(conn);
 
         return projectHasFeedbackTO;
+    }
+    
+    public List<ProjectHasFeedbackTO> selectByProject(int byProject) throws Exception {
+         PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<ProjectHasFeedbackTO> objectTOList = new ArrayList<ProjectHasFeedbackTO>();
+    
+        ps = getConnection().prepareStatement("SELECT projects_id, feedbacks_id, action_plan, action_plane_done, state FROM projects_has_feedbacks WHERE projects_id = ?");
+        ps.setInt(1, byProject);
+        rs = ps.executeQuery();
+        
+        while (rs.next()){
+            int projectId= rs.getInt("projects_id");
+            int FeedbackId = rs.getInt("feedbacks_id");
+            String actionPlane = rs.getString("action_plan");
+            int actionPlaneDone = rs.getInt("action_plane_done");
+            int state = rs.getInt("state");
+            
+            
+            
+            objectTOList.add(new ProjectHasFeedbackTO(projectId, FeedbackId, actionPlane, actionPlaneDone, state));
+                     
+        }
+        
+        close(rs);
+        close(ps);
+        close(conn);
+
+        return objectTOList;
     }
     
 }

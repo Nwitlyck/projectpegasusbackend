@@ -39,9 +39,7 @@ public class ServiceColaboratorHasProjectTO extends Service implements ICrud <Co
         ps.setDate(4, objectTO.getInitialDate());
         ps.setDate(5, objectTO.getFinalDate());
         ps.setInt(6, objectTO.getState());
-        ps.setInt(7, objectTO.getIdColaborator());
-        ps.setInt(8, objectTO.getIdProject());
-        ps.setInt(9, objectTO.getId());
+        ps.setInt(7, objectTO.getId());
         ps.executeUpdate();
 
         close(ps);
@@ -97,7 +95,8 @@ public class ServiceColaboratorHasProjectTO extends Service implements ICrud <Co
         ColaboratorHasProjectTO colaboratorHasProjectTO = null;
 
         ps = getConnection().prepareStatement("SELECT id, id_colaborador, id_project, totalTime, initial_date, final_date, state FROM colaboratosr_has_projects WHERE id_colaborador = ? AND id_project = ? AND state = 1");
-        ps.setInt(1, objectTO.getId());
+        ps.setInt(1, objectTO.getIdColaborator());
+        ps.setInt(2, objectTO.getIdProject());
         rs = ps.executeQuery();
 
         if (rs.next()) {
